@@ -5,10 +5,11 @@
 }
 .map {
     border: medium solid #999;
+    border-radius: 50px;
 }
 .panel {
-  
+
 }
 .title{
-  
+
 }
