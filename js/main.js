@@ -4,7 +4,7 @@ window.onload = setMap();
 //set up choropleth map
 function setMap(){
     //map frame dimensions
-    var width = 1100,
+    var width = 1125,
         height = 600;
 
     //create new svg container for the map
