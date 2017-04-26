@@ -30,6 +30,8 @@ function setMap(){
         .await(callback);
 
     function callback(error, csvData, world){
+        //place graticule on the map
+        setGraticule(map, path);
         //translate TopoJSON
         var worldCountries = topojson.feature(world, world.objects.collection).features;
         //variables for data join
@@ -57,6 +59,29 @@ function setMap(){
             };
         };
     };
+    //examine the results
+function setGraticule(map, path){
+    //...GRATICULE BLOCKS FROM MODULE 8
+    //create graticule generator
+    var graticule = d3.geoGraticule()
+      .step([50, 50]); //place graticule lines every 5 degrees of longitude and latitude
+    //create graticule background
+    var gratBackground = map.append("path")
+      .datum(graticule.outline()) //bind graticule background
+      .attr("class", "gratBackground") //assign class for styling
+      .attr("d", path) //project graticule
+
+    //Example 2.6 creates graticule lines
+
+    //create graticule lines
+    var gratLines = map.selectAll(".gratLines") //select graticule elements that will be created
+      .data(graticule.lines()) //bind graticule lines to each element to be created
+      .enter() //create an element for each datum
+      .append("path") //append each element to the svg as a path element
+      .attr("class", "gratLines") //assign class for styling
+      .attr("d", path); //project graticule lines
+
+};
 
         //variables for data join
         var attrArray = ["Country", "Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs", "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"];
