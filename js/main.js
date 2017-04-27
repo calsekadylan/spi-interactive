@@ -1,3 +1,10 @@
+(function(){
+
+var attrArray = ["Country","Social_Progress_Index","Rank_(BHN)","Basic_Human_Needs","Rank_(FW)",
+"Foundations_of_Well-Being","Rank_(O)","Opportunity"]; //countries and attributes
+
+var expressed = attrArray[1];
+
 //begin script when window loads
 window.onload = setMap();
 
@@ -22,7 +29,6 @@ function setMap(){
     var path = d3.geoPath()
         .projection(projection);
 
-
     //use d3.queue to parallelize asynchronous data loading
     d3.queue()
         .defer(d3.csv, "data/SPI_Data.csv") //load attributes from csv
@@ -32,46 +38,29 @@ function setMap(){
     function callback(error, csvData, world){
         //place graticule on the map
         setGraticule(map, path);
+
         //translate TopoJSON
         var worldCountries = topojson.feature(world, world.objects.collection).features;
-        //variables for data join
-        var attrArray = ["Country","Social_Progress_Index","Rank_(BHN)","Basic_Human_Needs","Rank_(FW)",
-        "Foundations_of_Well-Being","Rank_(O)","Opportunity"];
-        //loop through csv to assign each set of csv attribute values to geojson region
-        for (var i=0; i<csvData.length; i++){
-        var csvRegion = csvData[i]; //the current region
-        var csvKey = csvRegion.adm0_a3; //the CSV primary key
 
-        //loop through geojson regions to find correct region
-        for (var a=0; a<worldCountries.length; a++){
+        //join csv data to topojson
+        worldCountries = joinData(worldCountries, csvData);
 
-            var geojsonProps = worldCountries[a].properties; //the current region geojson properties
-            var geojsonKey = geojsonProps.adm0_a3; //the geojson primary key
+        //add enumeration units to map
+        setEnumerationUnits(worldCountries, map, path);
+      };
+};
 
-            //where primary keys match, transfer csv data to geojson properties object
-            if (geojsonKey == csvKey){
-
-                //assign all attributes and values
-                attrArray.forEach(function(attr){
-                    var val = parseFloat(csvRegion[attr]); //get csv attribute value
-                    geojsonProps[attr] = val; //assign attribute and value to geojson properties
-                });
-            };
-        };
-    };
-    //examine the results
 function setGraticule(map, path){
-    //...GRATICULE BLOCKS FROM MODULE 8
+
     //create graticule generator
     var graticule = d3.geoGraticule()
-      .step([50, 50]); //place graticule lines every 5 degrees of longitude and latitude
+      .step([50, 50]); //place graticule lines every 50 degrees of longitude and latitude
+
     //create graticule background
     var gratBackground = map.append("path")
       .datum(graticule.outline()) //bind graticule background
       .attr("class", "gratBackground") //assign class for styling
       .attr("d", path) //project graticule
-
-    //Example 2.6 creates graticule lines
 
     //create graticule lines
     var gratLines = map.selectAll(".gratLines") //select graticule elements that will be created
@@ -83,39 +72,42 @@ function setGraticule(map, path){
 
 };
 
-        //variables for data join
-        var attrArray = ["Country", "Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs", "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"];
+function joinData(worldCountries, csvData){
+  //loop through csv to assign each set of csv attribute values to geojson region
+  for (var i=0; i<csvData.length; i++){
+      var csvRegion = csvData[i]; //the current region
+      var csvKey = csvRegion.adm0_a3; //the CSV primary key
 
-        //loop through csv to assign each set of csv attribute values to country
-        for (var i=0; i<csvData.length; i++){
-            var csvRegion = csvData[i]; //the current region
-            var csvKey = csvRegion.adm0_a3; //the CSV primary key
+  //loop through geojson regions to find correct region
+  for (var a=0; a<worldCountries.length; a++){
+      var geojsonProps = worldCountries[a].properties; //the current region geojson properties
+      var geojsonKey = geojsonProps.adm0_a3; //the geojson primary key
 
-            //loop through geojson countries to find correct country
-            for (var a=0; a<worldCountries.length; a++){
-              var geojsonProps = worldCountries[a].properties; //the current region geojson properties
-              var geojsonKey = geojsonProps.adm0_a3; //the geojson primary key
+      //where primary keys match, transfer csv data to geojson properties object
+      if (geojsonKey == csvKey){
 
-              //where primary keys match, transfer csv data to geojson properties object
-              if (geojsonKey == csvKey){
-
-                //assign all attributes and values
-                attrArray.forEach(function(attr){
-                    var val = parseFloat(csvRegion[attr]); //get csv attribute value
-                    geojsonProps[attr] = val; //assign attribute and value to geojson properties
-                });
-            };
+          //assign all attributes and values
+          attrArray.forEach(function(attr){
+              var val = parseFloat(csvRegion[attr]); //get csv attribute value
+              geojsonProps[attr] = val; //assign attribute and value to geojson properties
+          });
         };
+      };
     };
-
-        //add countries to map
-        var countries = map.selectAll(".countries")
-            .data(worldCountries)
-            .enter()
-            .append("path")
-            .attr("class", function(d){
-              return "countries " + d.properties.adm0_a3;
-            })
-            .attr("d", path);
-    };
+  return worldCountries;
 };
+
+function setEnumerationUnits(worldCountries, map, path){
+
+  //add countries to map
+  var countries = map.selectAll(".countries")
+      .data(worldCountries)
+      .enter()
+      .append("path")
+      .attr("class", function(d){
+        return "countries " + d.properties.adm0_a3;
+      })
+      .attr("d", path);
+};
+
+})();
