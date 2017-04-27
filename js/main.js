@@ -1,15 +1,17 @@
 (function(){
 
-var attrArray = ["Country","Social_Progress_Index","Rank_(BHN)","Basic_Human_Needs","Rank_(FW)",
-"Foundations_of_Well-Being","Rank_(O)","Opportunity"]; //countries and attributes
+//psuedo-global variables
+var attrArray = ["Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs",
+                "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"];
 
-var expressed = attrArray[1];
+var expressed = attrArray[0];
 
 //begin script when window loads
 window.onload = setMap();
 
 //set up choropleth map
 function setMap(){
+
     //map frame dimensions
     var width = 1125,
         height = 540;
@@ -21,7 +23,7 @@ function setMap(){
         .attr("width", width)
         .attr("height", height);
 
-    //create Albers equal area conic projection centered on France
+    //create Robinson projection
     var projection = d3.geoRobinson()
         .scale(200)
         .translate([(width / 2)-75, (height / 2)+40]);
@@ -45,8 +47,11 @@ function setMap(){
         //join csv data to topojson
         worldCountries = joinData(worldCountries, csvData);
 
+        //create color scale
+        var colorScale = createColorScale(csvData);
+
         //add enumeration units to map
-        setEnumerationUnits(worldCountries, map, path);
+        setEnumerationUnits(worldCountries, map, path, colorScale);
       };
 };
 
@@ -97,7 +102,7 @@ function joinData(worldCountries, csvData){
   return worldCountries;
 };
 
-function setEnumerationUnits(worldCountries, map, path){
+function setEnumerationUnits(worldCountries, map, path, colorScale){
 
   //add countries to map
   var countries = map.selectAll(".countries")
@@ -107,7 +112,38 @@ function setEnumerationUnits(worldCountries, map, path){
       .attr("class", function(d){
         return "countries " + d.properties.adm0_a3;
       })
-      .attr("d", path);
+      .attr("d", path)
+      .style("fill", function(d){
+          return colorScale(d.properties[expressed]);
+      });
+};
+
+function createColorScale(data){
+
+    var colorClasses = [
+      "#54278f",
+      "#756bb1",
+      "#9e9ac8",
+      "#bcbddc",
+      "#dadaeb",
+      "#f2f0f7",
+    ];
+
+    //create a color scale generator
+    var colorScale = d3.scaleQuantile()
+        .range(colorClasses);
+
+    //build array of all values in the expressed attribute
+    var domainArray = [];
+    for (var i=0; i<data.length; i++){
+        var val = parseFloat(data[i][expressed]);
+        domainArray.push(val);
+    };
+
+    //assign array of expressed values as scale
+    colorScale.domain(domainArray);
+
+    return colorScale;
 };
 
 })();
