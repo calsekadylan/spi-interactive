@@ -1,10 +1,10 @@
 (function(){
 
 //psuedo-global variables
-var attrArray = ["Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs",
-                "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"];
+var attrArray = ["Social_Progress_Index","Basic_Human_Needs","Foundations_of_Well-Being","Opportunity"]; //list of attributes
+var rankArray = ["Rank_(SPI)","Rank_(BHN)","Rank_(FW)","Rank_(O)"];
 
-var expressed = attrArray[0];
+var expressed = attrArray[2];
 
 //begin script when window loads
 window.onload = setMap();
@@ -78,6 +78,8 @@ function setGraticule(map, path){
 };
 
 function joinData(worldCountries, csvData){
+   //variables for data join
+   var attrArray = ["Country", "Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs", "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"];
   //loop through csv to assign each set of csv attribute values to geojson region
   for (var i=0; i<csvData.length; i++){
       var csvRegion = csvData[i]; //the current region
@@ -114,19 +116,19 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
       })
       .attr("d", path)
       .style("fill", function(d){
-          return colorScale(d.properties[expressed]);
+        return choropleth(d.properties, colorScale);
       });
 };
 
 function createColorScale(data){
 
     var colorClasses = [
-      "#54278f",
-      "#756bb1",
-      "#9e9ac8",
-      "#bcbddc",
-      "#dadaeb",
-      "#f2f0f7",
+    "#edf8fb",
+    "#bfd3e6",
+    "#9ebcda",
+    "#8c96c6",
+    "#8856a7",
+    "#810f7c"
     ];
 
     //create a color scale generator
@@ -145,5 +147,16 @@ function createColorScale(data){
 
     return colorScale;
 };
+function choropleth(props, colorScale){
+    //make sure attribute value is a number
+    var val = parseFloat(props[expressed]);
+    //if attribute value exists, assign a color; otherwise assign gray
+    if (typeof val == 'number' && !isNaN(val)){
+        return colorScale(val);
+    } else {
+        return "#CCC";
+    };
+};
+
 
 })();
