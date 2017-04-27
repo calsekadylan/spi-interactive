@@ -1,7 +1,8 @@
 (function(){
 //pseudo-global variables
-var attrArray = ["Country", "Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs", "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"]; //list of attributes
-var expressed = attrArray[2]; //initial attribute
+var attrArray = ["Social_Progress_Index","Basic_Human_Needs","Foundations_of_Well-Being","Opportunity"]; //list of attributes
+var rankArray = ["Rank_(SPI)","Rank_(BHN)","Rank_(FW)","Rank_(O)"];
+var expressed = attrArray[3]; //initial attribute
 //begin script when window loads
 window.onload = setMap();
 
@@ -90,7 +91,7 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
             })
             .attr("d", path)
             .style("fill", function(d){
-            return colorScale(d.properties[expressed]);
+            return choropleth(d.properties, colorScale);
         });
 };
 
@@ -116,11 +117,23 @@ function makeColorScale(data){
         var val = parseFloat(data[i][expressed]);
         
         domainArray.push(val);
+    
     };
 
+    
     //assign array of expressed values as scale domain
     colorScale.domain(domainArray);
 
     return colorScale;
+};
+function choropleth(props, colorScale){
+    //make sure attribute value is a number
+    var val = parseFloat(props[expressed]);
+    //if attribute value exists, assign a color; otherwise assign gray
+    if (typeof val == 'number' && !isNaN(val)){
+        return colorScale(val);
+    } else {
+        return "#CCC";
+    };
 };
 })();
