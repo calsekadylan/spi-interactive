@@ -3,7 +3,6 @@
 //psuedo-global variables
 var attrArray = ["Social_Progress_Index","Basic_Human_Needs","Foundations_of_Well-Being","Opportunity"]; //list of attributes
 var rankArray = ["Rank_(SPI)","Rank_(BHN)","Rank_(FW)","Rank_(O)"];
-
 var expressed = attrArray[0];
 
 //begin script when window loads
@@ -173,12 +172,14 @@ function choropleth(props, colorScale){
 function openNav() {
 
     var sideNav= d3.select("#mySidenav");
-    if (sideNav.style("width")=="250px") {
-      sideNav.style("width","0px")
-    } else{
-      sideNav.style("width","250px")
-    }
+    sideNav.style("width","250px")
+    
 };
+
+  function closeNav() {
+    var sideNav= d3.select("#mySidenav");
+    sideNav.style("width","0px")
+  };
 
 function changeAttribute(attribute, csvData){
     //change the expressed attribute
@@ -196,6 +197,7 @@ function changeAttribute(attribute, csvData){
 
    };
 $("span").click(openNav);
+$(".closebtn").click(closeNav);
 function drawPcp(csvData){
    //pcp dimensions
   var width = 960;
