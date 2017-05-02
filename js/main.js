@@ -53,11 +53,8 @@ function setMap(){
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
 
-
+        //create parallel coordinate plot
         drawPcp(csvData);
-
-
-
       };
 };
 
@@ -84,8 +81,6 @@ function setGraticule(map, path){
 };
 
 function joinData(worldCountries, csvData){
-   //variables for data join
-   var attrArray = ["Country", "Rank_(SPI)", "Social_Progress_Index", "Rank_(BHN)", "Basic_Human_Needs", "Rank_(FW)", "Foundations_of_Well-Being", "Rank_(O)", "Opportunity"];
   //loop through csv to assign each set of csv attribute values to geojson region
   for (var i=0; i<csvData.length; i++){
       var csvRegion = csvData[i]; //the current region
@@ -111,7 +106,6 @@ function joinData(worldCountries, csvData){
 };
 
 function setEnumerationUnits(worldCountries, map, path, colorScale){
-
   //add countries to map
   var countries = map.selectAll(".countries")
       .data(worldCountries)
@@ -138,12 +132,12 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
 function createColorScale(data){
 
     var colorClasses = [
-    "#edf8fb",
-    "#bfd3e6",
-    "#9ebcda",
-    "#8c96c6",
-    "#8856a7",
-    "#810f7c"
+      "#edf8fb",
+      "#bfd3e6",
+      "#9ebcda",
+      "#8c96c6",
+      "#8856a7",
+      "#810f7c"
     ];
 
     //create a color scale generator
@@ -162,6 +156,7 @@ function createColorScale(data){
 
     return colorScale;
 };
+
 function choropleth(props, colorScale){
     //make sure attribute value is a number
     var val = parseFloat(props[expressed]);
@@ -377,6 +372,7 @@ function dehighlight(props){
             return getStyle(this, "stroke-width")
         });
       };
+
       //turns calls into seperate funtions to get information stored in the desc element for that style
       function getStyle(element, styleName){
           var styleText = d3.select(element)
@@ -387,6 +383,7 @@ function dehighlight(props){
 
           return styleObject[styleName];
       };
+      
       //function to move info label with mouse
       function moveLabel(){
         //get width of label
