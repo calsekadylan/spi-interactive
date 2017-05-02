@@ -167,12 +167,21 @@ function createMenu(){
         .append("a")
         .attr("class","closebtn")
         .text("-");
+<<<<<<< Updated upstream
 
   var menuOptions = menu.selectAll("menuOptions")
     .append("a")
+=======
+  
+  var menuOptions = menu.append("a")
+    .append("a")  
+>>>>>>> Stashed changes
     .text("SPI")
+    .append("a")
     .text("Basic Human Needs")
+    .append("a")
     .text("Foundations of Well Being")
+    .append("a")
     .text("Opportunity");
 
 
