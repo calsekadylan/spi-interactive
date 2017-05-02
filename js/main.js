@@ -207,17 +207,20 @@ function drawPcp(csvData){
   for (var key in csvData[0]){
     keys.push(key);
   };
-
+console.log(keys);
   //fill attributes array with only the attribute names
-  for (var i=1; i < keys.length;  i++){
-    attributes.push(keys[i]);
-  };
+  for (var i=1; i < keys.length-1;  i++){
+    if (keys[i].indexOf("Rank")==-1){
+      attributes.push(keys[i]);
+    };
 
+  };
+console.log(attributes);
   //create horizonatal pcp coordinate generator
-  var coordinates = d3.scaleOrdinal() // create an ordinal axis scale
+  var coordinates = d3.scalePoint() // create an ordinal axis scale
     .domain(attributes) //horizontally space each axis evenly
     .range([0, width]); //set the horizontal width to svg
-
+console.log(width);
   var axis = d3.axisLeft() //create axis generator
 
 
@@ -278,7 +281,8 @@ function drawPcp(csvData){
       .enter()  //create new elements
       .append("g")  //append elements as containers
       .attr("class", "axis")  //class for styling
-      .attr("transorm", function(d) {
+      .attr("transform", function(d) {
+        console.log(coordinates(d));
           return "translate("+coordinates(d)+")";  //position axes
       })
       .each(function(d){  //invoke the function for each axis
@@ -294,8 +298,8 @@ function drawPcp(csvData){
           });
 
       });
-    pcplot.select("#"+expressed)  //select the expressed attribute's axis
-          .style("stroke-width", "10px");
+    // pcplot.select("#"+expressed)  //select the expressed attribute's axis
+    //       .style("stroke-width", "10px");
       };
 function highlight(data){
   var props = datatest(data);  //standardize json on csv data
