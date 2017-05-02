@@ -52,7 +52,7 @@ function setMap(){
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
 
-        changeAttribute(csvData);
+        //changeAttribute(csvData);
         //create parallel coordinate plot
         drawPcp(csvData);
       
@@ -185,26 +185,23 @@ function openNav() {
 
 function changeAttribute(csvData){
     var attribute;
-    var spiSelector = d3.select("#SPI");
-    var humanNeedsSelector = d3.select("#BasicHumanNeeds");
-    var wellBeingSelector = d3.select("#FoundationsOfWellBeing");
-    var opportunitySelector = d3.select("#Opportunity");
+   
     
-    spiSelector.onclick() = function() {
+   $("#SPI").click(function(){
       attribute = attrArray[0];
-    };
-      humanNeedsSelector.onclick() = function() {
+    });
+    $("#BasicHumanNeeds").click(function(){
       attribute = attrArray[1];
-    };
-      wellBeingSelector.onclick() = function() {
+    });
+     $("#FoundationsOfWellBeing").click(function(){
       attribute = attrArray[2];
-    };
-      opportunitySelector.onclick() = function() {
+    });
+    $("#Opportunity").click(function(){
       attribute = attrArray[3];
-    };
+    });
     //change the expressed attribute
     expressed = attribute;
-    console.log(expressed);  
+    console.log(attribute);  
   //recreate the color scale
    var colorScale = createColorScale(csvData);
 
