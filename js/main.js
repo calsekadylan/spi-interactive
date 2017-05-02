@@ -52,8 +52,10 @@ function setMap(){
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
 
+        changeAttribute(csvData);
         //create parallel coordinate plot
         drawPcp(csvData);
+      
       };
 };
 
@@ -181,9 +183,28 @@ function openNav() {
     sideNav.style("width","0px")
   };
 
-function changeAttribute(attribute, csvData){
+function changeAttribute(csvData){
+    var attribute;
+    var spiSelector = d3.select("#SPI");
+    var humanNeedsSelector = d3.select("#BasicHumanNeeds");
+    var wellBeingSelector = d3.select("#FoundationsOfWellBeing");
+    var opportunitySelector = d3.select("#Opportunity");
+    
+    spiSelector.onclick() = function() {
+      attribute = attrArray[0];
+    };
+      humanNeedsSelector.onclick() = function() {
+      attribute = attrArray[1];
+    };
+      wellBeingSelector.onclick() = function() {
+      attribute = attrArray[2];
+    };
+      opportunitySelector.onclick() = function() {
+      attribute = attrArray[3];
+    };
     //change the expressed attribute
     expressed = attribute;
+    console.log(expressed);  
   //recreate the color scale
    var colorScale = createColorScale(csvData);
 
