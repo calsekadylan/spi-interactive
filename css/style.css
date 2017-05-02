@@ -83,7 +83,7 @@ font-family: sans-serif;
 }
 
 .pcplot {
-  margin-top: 470px;
+  margin-top: 0px;
 }
 
 .pcpBackground {
@@ -95,7 +95,7 @@ font-family: sans-serif;
 
 .pcpLines path {
   fill: none;
-  stroke-width: 4px;
+  stroke-width: 1px;
   stroke: #1e90ff;
 }
 
@@ -104,4 +104,14 @@ font-family: sans-serif;
   stroke: #000;
   stroke-opacity: 0.5;
   stroke-linecap: round;
+}
+.infolabel {
+    position: absolute;
+    height: 50px;
+    min-width: 100px;
+    color: #fff;
+    background-color: #000;
+    border: solid thin #fff;
+    padding: 5px 10px;
+    top: -75px;
 }

@@ -53,6 +53,7 @@ function setMap(){
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
         createMenu();
+        drawPcp(csvData);
       };
 };
 
@@ -118,7 +119,16 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
       .attr("d", path)
       .style("fill", function(d){
         return choropleth(d.properties, colorScale);
-      });
+      })
+      .on("mouseover", function(d){//event that occurs when mouse is over county
+        highlight(d.properties); //highlight
+      })
+      .on("mouseout", function(d){//event that occurs when mouse moves off county
+        dehighlight(d.properties);//dehighlight
+ })
+      .on("mousemove", moveLabel);
+  var desc = countries.append("desc")
+      .text('{"stroke": "#000", "stroke-width": "0.5px"}');
 };
 
 function createColorScale(data){
@@ -195,24 +205,24 @@ function drawPcp(csvData){
   };
 
   //create horizonatal pcp coordinate generator
-  var coordinates = d3.scale.ordinal() // create an ordinal axis scale
+  var coordinates = d3.scaleOrdinal() // create an ordinal axis scale
     .domain(attributes) //horizontally space each axis evenly
-    .rangePoints([0, width]); //set the horizontal width to svg
+    .range([0, width]); //set the horizontal width to svg
 
-  var axis = d3.svg.axis() //create axis generator
-    .orient("left");  //orient generated axes vertically
+  var axis = d3.axisLeft() //create axis generator
+
 
     //create vertical pcp scale
     scales = {}; //object to hold scale generators
     attributes.forEach(function(att){ //for each attributes
-      scales[att] = ds.scale.linear()//create linear scale generators
+      scales[att] = d3.scaleLinear()//create linear scale generators
           .domain(d3.extent(csvData, function(data){
                 return +data[att];  //create array of extents
           }))
           .range([height, 0]);  //set the axis height to SVG height
     });
 
-    var line = d3.svg.line();  //create line generators
+    var line = d3.line();  //create line generators
 
     //create a new svg element with the above dimensions
     var pcplot = d3.select("body")
@@ -221,11 +231,11 @@ function drawPcp(csvData){
       .attr("height", height)
       .attr("class", "pcplot") //for styling
       .append("g") //append container elementa
-      .attr("transform", d3.transform( //change the container size/shape-rendering
-        "scale(0.8, 0.6), "+//shrink
-        "translate(96, 50)")); //move
+      .attr("transform", //change the container size/shape-rendering
+        "scale(0.8, 0.6) "+//shrink
+        "translate(96, 50)"); //move
 
-    var pcpBackground = pcplot.append("recct") //background for the pcpBackground
+    var pcpBackground = pcplot.append("rect") //background for the pcpBackground
       .attr("x", "-30")
       .attr("y", "-35")
       .attr("width", "1020")
@@ -252,7 +262,7 @@ function drawPcp(csvData){
       })
       .on("mouseover", highlight)
       .on("mouseout", dehighlight)
-      .on("mouseover", moveLabel);
+      .on("mousemove", moveLabel);
     //add axes
     var axes = pcplot.selectAll(".attribute")  //prepare for new elements
       .data(attributes)  //bind data (attribute array)
@@ -288,14 +298,24 @@ function highlight(data){
   d3.selectAll(".pcpLines")  //select the pcp lines
       .select("#"+props.adm0_a3)  //select the right pcp line-height
       .style("stroke", "#ffd700");  //restyle the line-height
-
+    };
+function setLabel(props){
   var labelAttribute = "<h1>"+props[expressed]+
                        "</h1><br><b>"+expressed+"</b>";  //label content
 
   var labelName = props.name;  //html string for name to go in child div
 
+  //create info label div
+  var infolabel = d3.select("body").append("div")
+      .attr("class", "infolabel")  //for styling  label
+      .attr("id", props.adm0_a3+"label")  //label for div
+      .html(labelAttribute)  //add text
+      .append("div")  //add child div for feature name
+      .attr("class", "labelname")  //for styliing name
+      .html(labelName);  //add feature name to label
 
 };
+
 function sequence(axis, csvData){
 
   //restyle the axis
@@ -309,12 +329,67 @@ function sequence(axis, csvData){
   //recolor the map
   d3.selectAll(".countries")  //select every countries
       .style("fill", function(d) {  //color enumeration units
-          return choropleth(d, colorScale(scvData));
+          return choropleth(d, colorScale(csvData));
       })
       .select("desc")  //replace the text in each country's desc element
       .text(function(d){
           return choropleth(d, colorScale(csvData));
       });
-};
 
+
+};
+//function to highlight enumeration units and bars
+function highlight(props){
+console.log(props.adm0_a3);
+        if (props.adm0_a3 < 1){
+          return false
+        };
+      //change stroke
+      var selected = d3.selectAll("." + props.adm0_a3.replace(/ /g,"_"))//replace space with "_"
+        .style("stroke", "blue")//stroke of highlight
+        .style("stroke-width", "2");
+        setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the county
+};//function to dehighlight enumeration units and bars
+function dehighlight(props){
+      var selected = d3.selectAll("." + props.adm0_a3.replace(/ /g,"_"))
+        .style("stroke", function(){
+            return getStyle(this, "stroke")
+        })
+        .style("stroke-width", function(){
+            return getStyle(this, "stroke-width")
+        });
+      };
+      //turns calls into seperate funtions to get information stored in the desc element for that style
+      function getStyle(element, styleName){
+          var styleText = d3.select(element)
+              .select("desc")
+              .text();
+          //then parse the JSON string to create a JSON object
+          var styleObject = JSON.parse(styleText);
+
+          return styleObject[styleName];
+      };
+      //function to move info label with mouse
+      function moveLabel(){
+        //get width of label
+          var labelWidth = d3.select(".infolabel")
+              .node()
+              .getBoundingClientRect()
+              .width;
+
+          //use coordinates of mousemove event to set label coordinates
+          var x1 = d3.event.clientX + 10,
+              y1 = d3.event.clientY - 75,
+              x2 = d3.event.clientX - labelWidth - 10,
+              y2 = d3.event.clientY + 25;
+
+          //horizontal label coordinate, testing for overflow
+          var x = d3.event.clientX > window.innerWidth - labelWidth - 20 ? x2 : x1;
+          //vertical label coordinate, testing for overflow
+          var y = d3.event.clientY < 75 ? y2 : y1;
+
+          d3.select(".infolabel")//moves label off the page so it doesnt flicker
+              .style("left", x + "px")
+              .style("top", y + "px");
+      };
 })();
