@@ -188,7 +188,7 @@ function changeAttribute(attribute, csvData){
    var colorScale = createColorScale(csvData);
 
    //recolor enumeration units
-    var regions = d3.selectAll(".regions")
+    var countries = d3.selectAll(".countries")
         .style("fill", function(d){
            return choropleth(d.properties, colorScale)
        });
