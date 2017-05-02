@@ -8,7 +8,7 @@ var expressed = attrArray[0];
 
 //begin script when window loads
 window.onload = setMap();
-
+//onclick="openNav()"
 //set up choropleth map
 function setMap(){
 
@@ -52,7 +52,7 @@ function setMap(){
 
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
-        createMenu();
+
       };
 };
 
@@ -159,33 +159,31 @@ function choropleth(props, colorScale){
     };
 
 };
-function createMenu(){
-  var menu = d3.select("body")
-        .append("div")
-        .attr("class", ".sidenav")
-        .attr("width", 250)
-        .append("a")
-        .attr("class","closebtn")
-        .text("-");
-<<<<<<< Updated upstream
 
-  var menuOptions = menu.selectAll("menuOptions")
-    .append("a")
-=======
-  
-  var menuOptions = menu.append("a")
-    .append("a")  
->>>>>>> Stashed changes
-    .text("SPI")
-    .append("a")
-    .text("Basic Human Needs")
-    .append("a")
-    .text("Foundations of Well Being")
-    .append("a")
-    .text("Opportunity");
-
-
+function openNav() {
+    
+    var sideNav= d3.select("#mySidenav");
+    if (sideNav.style("width")=="250px") {
+      sideNav.style("width","0px")
+    } else{
+      sideNav.style("width","250px")
+    }
 };
+function changeAttribute(attribute, csvData){
+    //change the expressed attribute
+    expressed = attribute;
 
+    //recreate the color scale
+    var colorScale = createColorScale(csvData);
+
+    //recolor enumeration units
+    var regions = d3.selectAll(".regions")
+        .style("fill", function(d){
+            return choropleth(d.properties, colorScale)
+        });
+    };
+
+
+$("span").click(openNav);
 
 })();
