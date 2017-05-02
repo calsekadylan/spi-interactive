@@ -8,7 +8,7 @@ var expressed = attrArray[0];
 
 //begin script when window loads
 window.onload = setMap();
-
+//onclick="openNav()"
 //set up choropleth map
 function setMap(){
 
@@ -52,8 +52,12 @@ function setMap(){
 
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
-        createMenu();
+
+        
         drawPcp(csvData);
+
+
+
       };
 };
 
@@ -169,24 +173,18 @@ function choropleth(props, colorScale){
     };
 
 };
-function createMenu(csvData){
-  var menu = d3.select("body")
-        .append("div")
-        .attr("class", "sidenav")
-        .attr("width", 250)
-        .append("a")
-        .attr("class","closebtn")
-        .text("-");
-
-  var menuOptions = menu.selectAll("menuOptions")
-    .append("a")
-    .text("SPI")
-    .text("Basic Human Needs")
-    .text("Foundations of Well Being")
-    .text("Opportunity");
 
 
+function openNav() {
+
+    var sideNav= d3.select("#mySidenav");
+    if (sideNav.style("width")=="250px") {
+      sideNav.style("width","0px")
+    } else{
+      sideNav.style("width","250px")
+    }
 };
+
 function drawPcp(csvData){
    //pcp dimensions
   var width = 960;
@@ -335,6 +333,7 @@ function sequence(axis, csvData){
       .text(function(d){
           return choropleth(d, colorScale(csvData));
       });
+
 
 
 };
