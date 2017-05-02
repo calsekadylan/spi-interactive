@@ -340,7 +340,7 @@ function sequence(axis, csvData){
 };
 //function to highlight enumeration units and bars
 function highlight(props){
-console.log(props.adm0_a3);
+
         if (props.adm0_a3 < 1){
           return false
         };
