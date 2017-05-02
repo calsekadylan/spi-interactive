@@ -4,7 +4,7 @@
 var attrArray = ["Social_Progress_Index","Basic_Human_Needs","Foundations_of_Well-Being","Opportunity"]; //list of attributes
 var rankArray = ["Rank_(SPI)","Rank_(BHN)","Rank_(FW)","Rank_(O)"];
 
-var expressed = attrArray[2];
+var expressed = attrArray[0];
 
 //begin script when window loads
 window.onload = setMap();
@@ -52,6 +52,7 @@ function setMap(){
 
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
+        createMenu();
       };
 };
 
@@ -156,6 +157,25 @@ function choropleth(props, colorScale){
     } else {
         return "#CCC";
     };
+
+};
+function createMenu(){
+  var menu = d3.select("body")
+        .append("div")
+        .attr("class", "sidenav")
+        .attr("width", 250)
+        .append("a")
+        .attr("class","closebtn")
+        .text("-");
+  
+  var menuOptions = menu.selectAll("menuOptions")
+    .append("a")  
+    .text("SPI")
+    .text("Basic Human Needs")
+    .text("Foundations of Well Being")
+    .text("Opportunity");
+
+
 };
 
 
