@@ -162,14 +162,14 @@ function choropleth(props, colorScale){
 function createMenu(){
   var menu = d3.select("body")
         .append("div")
-        .attr("class", "sidenav")
+        .attr("class", ".sidenav")
         .attr("width", 250)
         .append("a")
         .attr("class","closebtn")
         .text("-");
-  
+
   var menuOptions = menu.selectAll("menuOptions")
-    .append("a")  
+    .append("a")
     .text("SPI")
     .text("Basic Human Needs")
     .text("Foundations of Well Being")
