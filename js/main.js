@@ -53,7 +53,7 @@ function setMap(){
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
 
-        
+
         drawPcp(csvData);
 
 
@@ -185,6 +185,22 @@ function openNav() {
     }
 };
 
+function changeAttribute(attribute, csvData){
+    //change the expressed attribute
+    expressed = attribute;
+  //recreate the color scale
+   var colorScale = createColorScale(csvData);
+
+   //recolor enumeration units
+    var regions = d3.selectAll(".regions")
+        .style("fill", function(d){
+           return choropleth(d.properties, colorScale)
+       });
+
+
+
+   }; 
+$("span").click(openNav);
 function drawPcp(csvData){
    //pcp dimensions
   var width = 960;
