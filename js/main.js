@@ -199,7 +199,7 @@ function changeAttribute(attribute, csvData){
 
 
 
-   }; 
+   };
 $("span").click(openNav);
 function drawPcp(csvData){
    //pcp dimensions
@@ -366,6 +366,9 @@ function highlight(props){
         setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the county
 };//function to dehighlight enumeration units and bars
 function dehighlight(props){
+  if (props.adm0_a3 < 1){
+    return false
+  };
       var selected = d3.selectAll("." + props.adm0_a3.replace(/ /g,"_"))
         .style("stroke", function(){
             return getStyle(this, "stroke")
