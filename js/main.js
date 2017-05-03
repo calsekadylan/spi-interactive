@@ -196,10 +196,10 @@ function changeAttribute(attribute, csvData){
 
    };
 $("span").click(openNav);
-function drawPcp(csvData){
+function drawPcp(csvData, map, path, worldCountries){
    //pcp dimensions
-  var width = 960;
-  var height = 200;
+  var width = 1125;
+  var height = 500;
   //create attribute names array for pcp axes
   var keys = [], attributes = [];
 
@@ -207,7 +207,7 @@ function drawPcp(csvData){
   for (var key in csvData[0]){
     keys.push(key);
   };
-console.log(keys);
+
   //fill attributes array with only the attribute names
   for (var i=1; i < keys.length-1;  i++){
     if (keys[i].indexOf("Rank")==-1){
@@ -215,12 +215,12 @@ console.log(keys);
     };
 
   };
-console.log(attributes);
+
   //create horizonatal pcp coordinate generator
   var coordinates = d3.scalePoint() // create an ordinal axis scale
     .domain(attributes) //horizontally space each axis evenly
     .range([0, width]); //set the horizontal width to svg
-console.log(width);
+
   var axis = d3.axisLeft() //create axis generator
 
 
@@ -250,8 +250,8 @@ console.log(width);
     var pcpBackground = pcplot.append("rect") //background for the pcpBackground
       .attr("x", "-30")
       .attr("y", "-35")
-      .attr("width", "1020")
-      .attr("height", "270")
+      .attr("width", "1150")
+      .attr("height", "570")
       .attr("rx", "15")
       .attr("ry", "15")
       .attr("class", "pcpBackground");
@@ -272,6 +272,7 @@ console.log(width);
               return [coordinates(att), scales[att] (d[att])];
           }));
       })
+
       .on("mouseover", highlight)
       .on("mouseout", dehighlight)
       .on("mousemove", moveLabel);
@@ -282,7 +283,7 @@ console.log(width);
       .append("g")  //append elements as containers
       .attr("class", "axis")  //class for styling
       .attr("transform", function(d) {
-        console.log(coordinates(d));
+
           return "translate("+coordinates(d)+")";  //position axes
       })
       .each(function(d){  //invoke the function for each axis
@@ -300,18 +301,19 @@ console.log(width);
       });
     // pcplot.select("#"+expressed)  //select the expressed attribute's axis
     //       .style("stroke-width", "10px");
+
       };
-function highlight(data){
-  var props = datatest(data);  //standardize json on csv data
-
-  d3.select("#"+props.adm0_a3)  //select the current province in the domain
-      .style("fill", "#000"); //set the enumeration unit fill to black
-
-  //highlight corresponding pcp line-height
-  d3.selectAll(".pcpLines")  //select the pcp lines
-      .select("#"+props.adm0_a3)  //select the right pcp line-height
-      .style("stroke", "#ffd700");  //restyle the line-height
-    };
+// function highlight(data){
+//   var props = datatest(data);  //standardize json on csv data
+//
+//   d3.select("#"+props.adm0_a3)  //select the current province in the domain
+//       .style("fill", "#000"); //set the enumeration unit fill to black
+//
+//   //highlight corresponding pcp line-height
+//   d3.selectAll(".pcpLines")  //select the pcp lines
+//       .select("#"+props.adm0_a3)  //select the right pcp line-height
+//       .style("stroke", "#ffd700");  //restyle the line-height
+//     };
 function setLabel(props){
   var labelAttribute = "<h1>"+props[expressed]+
                        "</h1><br><b>"+expressed+"</b>";  //label content
@@ -363,6 +365,11 @@ function highlight(props){
         .style("stroke", "blue")//stroke of highlight
         .style("stroke-width", "2");
         setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the county
+      //highlight corresponding pcp line
+      d3.selectAll(".pcpLines") //select pcp lines
+        .select("#"+props.adm0_a3) //select the right pcp line
+        .style("stroke","#36246c") //restyle the line
+        .style("stroke-width", "5");
 };//function to dehighlight enumeration units and bars
 function dehighlight(props){
   if (props.adm0_a3 < 1){
@@ -375,6 +382,10 @@ function dehighlight(props){
         .style("stroke-width", function(){
             return getStyle(this, "stroke-width")
         });
+        //dehighlight corresponding pcp line
+        d3.selectAll(".pcpLines") //select pcp lines
+          .select("#"+props.adm0_a3) //select the right pcp line
+          .style("stroke","#1e90ff"); //restyle the l
       };
 
       //turns calls into seperate funtions to get information stored in the desc element for that style
@@ -387,7 +398,7 @@ function dehighlight(props){
 
           return styleObject[styleName];
       };
-      
+
       //function to move info label with mouse
       function moveLabel(){
         //get width of label
