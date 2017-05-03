@@ -350,7 +350,8 @@ console.log(props);
   var countrylabel;
 
 console.log(countrylabel);
-  var countryName = infolabel.append("div")
+  var countryName = infolabel
+      .attr("div")
       .attr("class", "labelname")  //for styliing name
       .html(countrylabel);  //add feature name to label
 
