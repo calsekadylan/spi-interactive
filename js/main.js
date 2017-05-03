@@ -307,14 +307,35 @@ console.log(width);
           });
 
       });
-    // pcplot.select("#"+expressed)  //select the expressed attribute's axis
-    //       .style("stroke-width", "10px");
-    var pcpTitle = pcplot.append("text")
-        .attr("x", 40)
-        .attr("y", 40)
+
+    //pcp axis labels
+    var pcpTitleSPI = pcplot.append("text")
+        .attr("x", -10)
+        .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
-        .text("SPC" + "BHN" + "FWB" + "Opportunity");
+        .text("SPI");
+
+    var pcpTitleBHN = pcplot.append("text")
+        .attr("x", 347)
+        .attr("y", 525)
+        .attr("class", "pcpTitle")
+        // adds title
+        .text("BHN");
+
+    var pcpTitleFWB = pcplot.append("text")
+        .attr("x", 715)
+        .attr("y", 525)
+        .attr("class", "pcpTitle")
+        // adds title
+        .text("FW-B");
+
+    var pcpTitleO = pcplot.append("text")
+        .attr("x", 1115)
+        .attr("y", 525)
+        .attr("class", "pcpTitle")
+        // adds title
+        .text("O");
 };
 
 /*function highlight(data){
