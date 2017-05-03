@@ -330,8 +330,14 @@ console.log(width);
 };*/
 
 function setLabel(props){
+  if (props.hasOwnProperty("name")) {
+    countrylabel = props.name;
 
-  var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressed+"</b>";  //label content
+  }
+  else {
+    countrylabel = props.Country;
+  }
+  var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressed+"<br>"+countrylabel+"</b>";  //label content
 
 
   //create info label div
@@ -340,11 +346,13 @@ function setLabel(props){
       .attr("class", "infolabel")  //for styling  label
       .attr("id", props.adm0_a3+"label")  //label for div
       .html(labelAttribute)  //add text
+console.log(props);
+  var countrylabel;
 
-
+console.log(countrylabel);
   var countryName = infolabel.append("div")
       .attr("class", "labelname")  //for styliing name
-      .html(props.name);  //add feature name to label
+      .html(countrylabel);  //add feature name to label
 
 };
 
@@ -376,7 +384,7 @@ function highlight(props){
       var selected = d3.selectAll("." + props.adm0_a3.replace(/ /g,"_"))
         .style("stroke", "#dbdc01")//stroke of highlight
         .style("stroke-width", "2");
-        setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the country
+        //setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the country
       d3.selectAll(".pcpLines")
           .select("#"+props.adm0_a3)
           .style("stroke", "#dbdc01")
