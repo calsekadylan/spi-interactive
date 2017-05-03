@@ -204,7 +204,7 @@ function changeAttribute(attribute, csvData){
         });
 };
 
-function drawPcp(csvData){
+function drawPcp(csvData, props){
    //pcp dimensions
   var width = 1125;
   var height = 500;
@@ -291,7 +291,7 @@ console.log(width);
       .append("g")  //append elements as containers
       .attr("class", "axis")  //class for styling
       .attr("transform", function(d) {
-        console.log(coordinates(d));
+
           return "translate("+coordinates(d)+")";  //position axes
       })
       .each(function(d){  //invoke the function for each axis
@@ -309,6 +309,12 @@ console.log(width);
       });
     // pcplot.select("#"+expressed)  //select the expressed attribute's axis
     //       .style("stroke-width", "10px");
+    var pcpTitle = pcplot.append("text")
+        .attr("x", 40)
+        .attr("y", 40)
+        .attr("class", "pcpTitle")
+        // adds title
+        .text("SPC" + "BHN" + "FWB" + "Opportunity");
 };
 
 /*function highlight(data){
@@ -324,7 +330,9 @@ console.log(width);
 };*/
 
 function setLabel(props){
+
   var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressed+"</b>";  //label content
+
 
   //create info label div
   var infolabel = d3.select("body")
@@ -332,6 +340,7 @@ function setLabel(props){
       .attr("class", "infolabel")  //for styling  label
       .attr("id", props.adm0_a3+"label")  //label for div
       .html(labelAttribute)  //add text
+
 
   var countryName = infolabel.append("div")
       .attr("class", "labelname")  //for styliing name
@@ -364,16 +373,16 @@ function highlight(props){
           return false;
     };
       //change stroke
-      var selected = d3.selectAll("." + props.adm0_a3)
+      var selected = d3.selectAll("." + props.adm0_a3.replace(/ /g,"_"))
         .style("stroke", "#dbdc01")//stroke of highlight
         .style("stroke-width", "2");
-
+        setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the country
       d3.selectAll(".pcpLines")
           .select("#"+props.adm0_a3)
           .style("stroke", "#dbdc01")
           .style("stroke-width", "7");
 
-    setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the county
+          setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the pcpline
 };
 
 function dehighlight(props){
