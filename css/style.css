@@ -81,6 +81,19 @@ option {
   font-family: sans-serif;
 }
 
+.definitionlabel{
+   position: absolute;
+  height: 90px;
+  min-width: 100px;
+  color: #fff;
+  background-color: #000;
+  border: solid thin #fff;
+  padding: 5px 10px;
+  font-family: sans-serif;
+  text-align: center;
+
+}
+
 .labelname {
   line-height: 2em;
   text-align: center;

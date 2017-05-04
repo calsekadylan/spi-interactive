@@ -7,7 +7,13 @@ var formalName = ["Social Progress Index","Basic Human Needs","Foundations of We
 var expressed = attrArray[0];
 var expressedRank = rankArray[0];
 var expressedName = formalName[0];
-
+var definitions = [
+"The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
+"The Basic Human Needs Dimension Assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
+"The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
+"The Opportunity Dimension measures the degree to which a country’s citizens have personal rights and freedoms and are able to make their own personal decisions as well as whether prejudices or hostilities within a society prohibit individuals from reaching their potential."
+];
+console.log(definitions[3]);
 //begin script when window loads
 window.onload = setMap();
 
@@ -337,28 +343,34 @@ console.log(width);
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
-        .text("SPI");
-
+        .text("SPI")
+        .on("mouseover", definitionLabel(definitions[0]));
+    
     var pcpTitleBHN = pcplot.append("text")
         .attr("x", 347)
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
-        .text("BHN");
-
+        .text("BHN")
+        .on("mouseover", definitionLabel(definitions[1]));
+    
     var pcpTitleFWB = pcplot.append("text")
         .attr("x", 715)
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
-        .text("FW-B");
-
+        .text("FW-B")
+        .on("mouseover", definitionLabel(definitions[2]));
+    
     var pcpTitleO = pcplot.append("text")
         .attr("x", 1115)
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
-        .text("O");
+        .text("O")
+        .on("mouseover", definitionLabel(definitions[3]));
+      
+      console.log(pcpTitleO);
 };
 
 /*function highlight(data){
@@ -415,6 +427,17 @@ console.log(countrylabel);
       .html(countrylabel);  //add feature name to label
 
 };
+
+function definitionLabel(String){
+ var definitionAttribute = "<p>"+String+"</p>";
+
+ var infolabel = d3.select("body")
+      .append("div")
+      .attr("class", "definitionlabel")  //for styling  label
+      .attr("id", "deflabel")  //label for div
+      .html(definitionAttribute)  //add text
+};
+
 
 function sequence(axis, csvData){
   //restyle the axis
