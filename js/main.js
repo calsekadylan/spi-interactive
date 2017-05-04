@@ -3,7 +3,10 @@
 //psuedo-global variables
 var attrArray = ["Social_Progress_Index","Basic_Human_Needs","Foundations_of_Well-Being","Opportunity"]; //list of attributes
 var rankArray = ["Rank_(SPI)","Rank_(BHN)","Rank_(FW)","Rank_(O)"];
+var formalName = ["Social Progress Index","Basic Human Needs","Foundations of Well-Being","Opportunity"];
 var expressed = attrArray[0];
+var expressedRank = rankArray[0];
+var expressedName = formalName[0];
 
 //begin script when window loads
 window.onload = setMap();
@@ -97,6 +100,10 @@ function joinData(worldCountries, csvData){
           attrArray.forEach(function(attr){
               var val = parseFloat(csvRegion[attr]); //get csv attribute value
               geojsonProps[attr] = val; //assign attribute and value to geojson properties
+          });
+          rankArray.forEach(function(attr){
+              var valRank = parseFloat(csvRegion[attr]); //get csv attribute value
+              geojsonProps[attr] = valRank; //assign attribute and value to geojson properties
           });
         };
       };
@@ -194,6 +201,22 @@ function changeAttribute(attribute, csvData){
     //change expressed attribute
     expressed = attribute;
 
+    if(attribute == "Social_Progress_Index"){
+      expressedRank = "Rank_(SPI)";
+      expressedName = "Social Progress Index";
+    }
+    if (attribute == "Basic_Human_Needs") {
+      expressedRank = "Rank_(BHN)";
+      expressedName = "Basic Human Needs";
+    };
+     if (attribute=="Foundations_of_Well-Being") {
+        expressedRank = "Rank_(FW)";
+        expressedName = "Foundations of Well-Being";
+    };
+     if (attribute=="Opportunity" ) {
+        expressedRank = "Rank_(O)";
+        expressedName = "Opportunity";
+    };
     //change color scale
     var colorScale = createColorScale(csvData);
 
@@ -358,7 +381,7 @@ function setLabel(props){
   else {
     countrylabel = props.Country;
   }
-  var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressed+"<br>"+countrylabel+"</b>";  //label content
+  var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+props[expressedRank]+"<br></b>";  //label content
 
 
   //create info label div
