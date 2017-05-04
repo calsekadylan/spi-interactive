@@ -27,7 +27,7 @@ Slovakia,25,78.45,20,92.19,19,78.8,35,64.35,SVK
 Chile,26,78.29,35,86.32,38,74.85,21,73.69,CHL
 Poland,27,77.98,34,86.67,24,77.19,26,70.07,POL
 Costa Rica,28,77.88,41,84.22,17,78.83,25,70.59,CRI
-South Korea,29,77.7,26,89.11,34,75.6,28,68.4,
+South Korea,29,77.7,26,89.11,34,75.6,28,68.4,KOR
 Cyprus,30,77.45,25,89.3,33,75.95,29,67.11,CYP
 Italy,31,77.38,29,88.39,25,77,30,66.76,ITA
 Hungary,32,74.8,27,88.8,62,70.4,33,65.21,HUN
@@ -107,7 +107,7 @@ Zambia,105,51.62,121,43.87,91,64.82,80,46.19,ZMB
 Rwanda,106,51.6,108,52.52,103,60.63,99,41.67,RWA
 Swaziland,107,50.94,107,53.34,115,57.02,92,42.45,SWZ
 Benin,108,50.04,109,50.41,108,58.96,103,40.73,BEN
-Congo,109,49.6,127,40.67,84,66.56,100,41.58,
+Congo,109,49.6,127,40.67,84,66.56,100,41.58,COG
 Uganda,110,49.49,114,47.91,99,61.54,108,39.02,UGA
 Malawi,111,48.95,118,46.42,114,57.31,89,43.12,MWI
 Burkina Faso,112,48.82,116,46.56,112,57.79,96,42.11,BFA
@@ -132,17 +132,17 @@ Guinea,130,39.6,129,40,124,51.2,127,27.59,GIN
 Afghanistan,131,35.4,131,37.17,130,46.5,132,22.51,AFG
 Chad,132,33.17,132,28.09,132,44.12,128,27.3,TCD
 Central African Republic,133,31.42,133,26.81,131,44.84,131,22.62,CAF
-North Korea,134,20,134,20,132,20,132,20,
-Taiwan,not ranked,no score,not ranked,no score,not ranked,no score,not ranked,no score,
+North Korea,134,20,134,20,132,20,132,20,PRK
+Taiwan,not ranked,no score,not ranked,no score,not ranked,no score,not ranked,no score,TWN
 Burundi,not ranked,no score,not ranked,no score,not ranked,46.63,not ranked,32.2,BDI
 Bahrain,not ranked,no score,not ranked,no score,not ranked,67.17,not ranked,46.94,BHR
 Belize,not ranked,no score,not ranked,no score,not ranked,65.56,not ranked,no score,BLZ
 Bhutan,not ranked,no score,not ranked,no score,not ranked,69.17,not ranked,no score,BTN
-Cte d'Ivoire,not ranked,no score,not ranked,47.09,not ranked,no score,not ranked,31.58,
+Cte d'Ivoire,not ranked,no score,not ranked,47.09,not ranked,no score,not ranked,31.58,CIV
 Comoros,not ranked,no score,not ranked,no score,not ranked,55.01,not ranked,42.51,COM
 Cape Verde,not ranked,no score,not ranked,no score,not ranked,70.5,not ranked,no score,CPV
 Gabon,not ranked,no score,not ranked,61.91,not ranked,no score,not ranked,48.07,GAB
-The Gambia,not ranked,no score,not ranked,57.9,not ranked,55.36,not ranked,no score,
+The Gambia,not ranked,no score,not ranked,57.9,not ranked,55.36,not ranked,no score,GMB
 Guinea-Bissau,not ranked,no score,not ranked,no score,not ranked,no score,not ranked,no score,GNB
 Haiti,not ranked,no score,not ranked,36.02,not ranked,no score,not ranked,36.89,HTI
 Libya,not ranked,no score,not ranked,no score,not ranked,56.43,not ranked,no score,LBY
@@ -155,10 +155,10 @@ Sudan,not ranked,no score,not ranked,no score,not ranked,no score,not ranked,25.
 Singapore,not ranked,no score,not ranked,no score,not ranked,no score,not ranked,62.83,SGP
 Sierra Leone,not ranked,no score,not ranked,34.43,not ranked,no score,not ranked,36.16,SLE
 Suriname,not ranked,no score,not ranked,no score,not ranked,75.4,not ranked,58.02,SUR
-Syria,not ranked,no score,not ranked,no score,not ranked,56.14,not ranked,24.25,
+Syria,not ranked,no score,not ranked,no score,not ranked,56.14,not ranked,24.25,SYR
 Turkmenistan,not ranked,no score,not ranked,75.82,not ranked,no score,not ranked,no score,TKM
 Timor-Leste,not ranked,no score,not ranked,50.55,not ranked,59.34,not ranked,no score,TLS
 Trinidad and Tobago,not ranked,no score,not ranked,75.18,not ranked,no score,not ranked,63.83,TTO
 Vietnam,not ranked,no score,not ranked,74.19,not ranked,no score,not ranked,36.28,VNM
-Democratic Republic of Congo,not ranked,no score,not ranked,no score,not ranked,47.69,not ranked,26.26,
+Democratic Republic of Congo,not ranked,no score,not ranked,no score,not ranked,47.69,not ranked,26.26,COD
 Zimbabwe,not ranked,no score,not ranked,45.16,not ranked,no score,not ranked,33.4,ZWE
