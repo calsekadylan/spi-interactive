@@ -381,7 +381,22 @@ function setLabel(props){
   else {
     countrylabel = props.Country;
   }
-  var labelAttribute = "<h1>"+props[expressed]+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+props[expressedRank]+"<br></b>";  //label content
+  var attrValue = props[expressed];
+  
+  var rankValue = props[expressedRank];
+  
+  var resultString;
+
+  var rankString;
+  
+  if (isNaN(attrValue)){
+        resultString = "No Data" ;
+        rankString = "Unranked";
+    }else{
+      resultString = attrValue.toString();
+      rankString = rankValue.toString();
+    }
+  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+rankString+"<br></b>";  //label content
 
 
   //create info label div
