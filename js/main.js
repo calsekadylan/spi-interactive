@@ -136,6 +136,8 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
       .on("mouseout", function(d){//event that occurs when mouse moves off county
         dehighlight(d.properties);//dehighlight
       })
+      //.on("mousemove", moveDefLabel)
+
       .on("mousemove", moveLabel);
         var desc = countries.append("desc")
         .text('{"stroke": "#000", "stroke-width": "0.5px"}');
@@ -360,37 +362,70 @@ console.log(width);
         .attr("x", -10)
         .attr("y", 525)
         .attr("class", "pcpTitle")
+        .attr("id", "pcpTitleSPI")
         // adds title
         .text("SPI")
         .style("stroke", "#fff")
-        .on("mouseover", definitionLabel(definitions[0]));
+        .on("mouseover", function(){ 
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[0]);  //add text
+        });
+       
+         
 
     var pcpTitleBHN = pcplot.append("text")
         .attr("x", 347)
         .attr("y", 525)
         .attr("class", "pcpTitle")
+        .attr("id", "pcpTitleBHN")
         // adds title
         .text("BHN")
         .style("stroke", "#fff")
-        .on("mouseover", definitionLabel(definitions[1]));
+        .on("mouseover", function(){ 
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[1]);  //add text
+        });       
+       
 
     var pcpTitleFWB = pcplot.append("text")
         .attr("x", 715)
         .attr("y", 525)
         .attr("class", "pcpTitle")
+        .attr("id", "pcpTitleFWB")
         // adds title
         .text("FW-B")
         .style("stroke", "#fff")
-        .on("mouseover", definitionLabel(definitions[2]));
+        .on("mouseover", function(){ 
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[2]);  //add text
+        }); 
+        
 
     var pcpTitleO = pcplot.append("text")
         .attr("x", 1115)
         .attr("y", 525)
         .attr("class", "pcpTitle")
+        .attr("id", "pcpTitleO")
         // adds title
         .text("O")
-        .style("stroke", "#fff")
-        .on("mouseover", definitionLabel(definitions[3]));
+        .style("stroke", "#FFFFFF")
+        .on("mouseover", function(){ 
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[3]);  //add text
+        }); 
+        
 
 
 };
@@ -457,7 +492,8 @@ function definitionLabel(String){
       .append("div")
       .attr("class", "definitionlabel")  //for styling  label
       .attr("id", "deflabel")  //label for div
-      .html(definitionAttribute)  //add text
+      .html(definitionAttribute);  //add text
+
 };
 
 
@@ -561,6 +597,29 @@ function moveLabel(){
           var y = d3.event.clientY < 75 ? y2 : y1;
 
           d3.select(".infolabel")//moves label off the page so it doesnt flicker
+              .style("left", x + "px")
+              .style("top", y + "px");
+};
+//function to move definition label with mouse
+function moveDefLabel(){
+        //get width of label
+          var labelWidth = d3.select(".definitionlabel")
+              .node()
+              .getBoundingClientRect()
+              .width;
+
+          //use coordinates of mousemove event to set label coordinates
+          var x1 = d3.event.clientX + 10,
+              y1 = d3.event.clientY - 75,
+              x2 = d3.event.clientX - labelWidth - 10,
+              y2 = d3.event.clientY + 25;
+
+          //horizontal label coordinate, testing for overflow
+          var x = d3.event.clientX > window.innerWidth - labelWidth - 20 ? x2 : x1;
+          //vertical label coordinate, testing for overflow
+          var y = d3.event.clientY < 75 ? y2 : y1;
+
+          d3.select(".definitionlabel")//moves label off the page so it doesnt flicker
               .style("left", x + "px")
               .style("top", y + "px");
 };
