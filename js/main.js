@@ -170,6 +170,7 @@ function createColorScale(data){
 };
 
 function choropleth(props, colorScale){
+
     //make sure attribute value is a number
     var val = parseFloat(props[expressed]);
     //if attribute value exists, assign a color; otherwise assign gray
@@ -229,11 +230,14 @@ function changeAttribute(attribute, csvData){
     //recolor countries based on expressed attribute
     var states = d3.selectAll(".countries")
         .style("fill", function(d){
+
           return choropleth(d.properties, colorScale)
         });
 };
 
 function drawPcp(csvData, props){
+  var colorScale = createColorScale(csvData);
+  console.log(colorScale);
    //pcp dimensions
   var width = 1125;
   var height = 500;
@@ -296,22 +300,35 @@ console.log(width);
 
     //add lines
     var pcpLines = pcplot.append("g")  //append a container element
-      .attr("class", "pcpLines")  //class for styling lines
-      .selectAll("path")  //prepare for new path elements
+      .attr("class", "pcpLines");  //class for styling lines
+
+    var pcpPathsg = pcpLines.selectAll("path")  //prepare for new path elements
       .data(csvData)  //bind data
       .enter() //create new path for each lines
-      .append("path")  //append each line path to the container element
+      .append("g")
       .attr("id", function(d){
           return d.adm0_a3;  //id each line by admin code
-      })
+      });
+
+    var pcpPaths = pcpPathsg.append("path")  //append each line path to the container element
       .attr("d", function(d){
           return line(attributes.map(function(att){
               return [coordinates(att), scales[att] (d[att])];
           }));
       })
+      .style("stroke", function(d) {  //color enumeration units
+        console.log(csvData);
+          return choropleth(d, colorScale);
+      })
       .on("mouseover", highlight)
       .on("mouseout", dehighlight)
       .on("mousemove", moveLabel);
+
+
+      var desc = pcpPathsg.append("desc")
+      .text(function(d){
+        return '{"stroke": "'+choropleth(d, colorScale)+'", "stroke-width": "0.5px"}'
+      })
 
     //add axes
     var axes = pcplot.selectAll(".attribute")  //prepare for new elements
@@ -330,6 +347,7 @@ console.log(width);
                   .tickSize(0)  //no ticks
               )
           .attr("id", d) //assign the attribute name as the axis id
+          .style("stroke", "#fff")
           .style("stroke-width", "5px")  //style each axis
           .on("click", function(){  //click listener
                 // sequence(this, csvData);
@@ -344,33 +362,37 @@ console.log(width);
         .attr("class", "pcpTitle")
         // adds title
         .text("SPI")
+        .style("stroke", "#fff")
         .on("mouseover", definitionLabel(definitions[0]));
-    
+
     var pcpTitleBHN = pcplot.append("text")
         .attr("x", 347)
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
         .text("BHN")
+        .style("stroke", "#fff")
         .on("mouseover", definitionLabel(definitions[1]));
-    
+
     var pcpTitleFWB = pcplot.append("text")
         .attr("x", 715)
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
         .text("FW-B")
+        .style("stroke", "#fff")
         .on("mouseover", definitionLabel(definitions[2]));
-    
+
     var pcpTitleO = pcplot.append("text")
         .attr("x", 1115)
         .attr("y", 525)
         .attr("class", "pcpTitle")
         // adds title
         .text("O")
+        .style("stroke", "#fff")
         .on("mouseover", definitionLabel(definitions[3]));
-      
-      console.log(pcpTitleO);
+
+
 };
 
 /*function highlight(data){
@@ -394,13 +416,13 @@ function setLabel(props){
     countrylabel = props.Country;
   }
   var attrValue = props[expressed];
-  
+
   var rankValue = props[expressedRank];
-  
+
   var resultString;
 
   var rankString;
-  
+
   if (isNaN(attrValue)){
         resultString = "No Data" ;
         rankString = "Unranked";
@@ -470,6 +492,7 @@ function highlight(props){
         //setLabel(props)//calling setLabel and pass props to to allow the label to appear when highlight on the country
       d3.selectAll(".pcpLines")
           .select("#"+props.adm0_a3)
+          .select("path")
           .style("stroke", "#dbdc01")
           .style("stroke-width", "7");
 
@@ -490,7 +513,17 @@ function dehighlight(props){
 
         d3.selectAll(".pcpLines")
             .select("#"+props.adm0_a3)
-            .style("stroke", "#1e90ff")
+            .select("path")
+            .style("stroke", function(d){
+          var descText = d3.select(this.parentNode)
+                .select("desc")
+                .text();
+
+                descText = JSON.parse(descText);
+
+                return descText.stroke;
+            })
+
             .style("stroke-width", "1");
 
     d3.select(".infolabel")

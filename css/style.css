@@ -38,13 +38,15 @@ option {
 
 .pcplot {
   margin-top: 0px;
+  /*transform: rotate(90deg);*/
 }
 
 .pcpBackground {
-  fill: #ccc;
-  opacity: 0.5;
+  fill: #000;
+  opacity: 1;
   stroke: #000;
   stroke-width: 4px;
+
 }
 
 .pcpLines path {
@@ -56,8 +58,8 @@ option {
 
 .axes path {
   fill: none;
-  stroke: #000;
-  stroke-opacity: 0.5;
+  stroke: #fff;
+  stroke-opacity: 1;
   stroke-linecap: round;
 }
 
