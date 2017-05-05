@@ -372,8 +372,11 @@ console.log(width);
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
           .html(definitions[0]);  //add text
-        });
-       
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
          
 
     var pcpTitleBHN = pcplot.append("text")
@@ -390,8 +393,11 @@ console.log(width);
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
           .html(definitions[1]);  //add text
-        });       
-       
+        })      
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
 
     var pcpTitleFWB = pcplot.append("text")
         .attr("x", 715)
@@ -407,7 +413,11 @@ console.log(width);
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
           .html(definitions[2]);  //add text
-        }); 
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         }); 
         
 
     var pcpTitleO = pcplot.append("text")
@@ -424,7 +434,11 @@ console.log(width);
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
           .html(definitions[3]);  //add text
-        }); 
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
         
 
 
