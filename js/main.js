@@ -13,14 +13,14 @@ var definitions = [
 "The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
 "The Opportunity Dimension measures the degree to which a country’s citizens have personal rights and freedoms and are able to make their own personal decisions as well as whether prejudices or hostilities within a society prohibit individuals from reaching their potential."
 ];
-console.log(definitions[3]);
+// console.log(definitions[3]);
 //begin script when window loads
 window.onload = setMap();
 
 //set up choropleth map
 function setMap(){
     //map frame dimensions
-    var width = 1125,
+    var width = 1500,
         height = 540;
 
     //create new svg container for the map
@@ -29,6 +29,7 @@ function setMap(){
         .attr("class", "map")
         .attr("width", width)
         .attr("height", height);
+
 
     //create Robinson projection
     var projection = d3.geoRobinson()
@@ -237,10 +238,10 @@ function changeAttribute(attribute, csvData){
 
 function drawPcp(csvData, props){
   var colorScale = createColorScale(csvData);
-  console.log(colorScale);
+  // console.log(colorScale);
    //pcp dimensions
   var width = 1125;
-  var height = 500;
+      height = 500;
   //create attribute names array for pcp axes
   var keys = [], attributes = [];
 
@@ -248,7 +249,7 @@ function drawPcp(csvData, props){
   for (var key in csvData[0]){
     keys.push(key);
   };
-console.log(keys);
+//console.log(keys);
   //fill attributes array with only the attribute names
   for (var i=1; i < keys.length-1;  i++){
     if (keys[i].indexOf("Rank")==-1){
@@ -256,12 +257,12 @@ console.log(keys);
     };
 
   };
-console.log(attributes);
+// console.log(attributes);
   //create horizonatal pcp coordinate generator
   var coordinates = d3.scalePoint() // create an ordinal axis scale
     .domain(attributes) //horizontally space each axis evenly
     .range([0, width]); //set the horizontal width to svg
-console.log(width);
+// console.log(width);
   var axis = d3.axisLeft() //create axis generator
 
 
@@ -278,16 +279,20 @@ console.log(width);
     var line = d3.line();  //create line generators
 
     //create a new svg element with the above dimensions
+    var height = 1200;
+        width = 2350;
     var pcplot = d3.select("body")
+
       .append("svg")
       .attr("width", width)
       .attr("height", height)
       .attr("class", "pcplot") //for styling
       .append("g") //append container elementa
+      // .attr("x", 1115)
+      // .attr("y", 525)
       .attr("transform", //change the container size/shape-rendering
         "scale(0.8, 0.6) "+//shrink
         "translate(96, 50)"); //move
-
     var pcpBackground = pcplot.append("rect") //background for the pcpBackground
       .attr("x", "-30")
       .attr("y", "-35")
@@ -300,7 +305,9 @@ console.log(width);
 
     //add lines
     var pcpLines = pcplot.append("g")  //append a container element
-      .attr("class", "pcpLines");  //class for styling lines
+      .attr("class", "pcpLines")  //class for styling lines
+      .attr("x", 1115)
+      .attr("y", 525);
 
     var pcpPathsg = pcpLines.selectAll("path")  //prepare for new path elements
       .data(csvData)  //bind data
@@ -317,7 +324,7 @@ console.log(width);
           }));
       })
       .style("stroke", function(d) {  //color enumeration units
-        console.log(csvData);
+        // console.log(csvData);
           return choropleth(d, colorScale);
       })
       .on("mouseover", highlight)
@@ -515,19 +522,17 @@ function dehighlight(props){
             .select("#"+props.adm0_a3)
             .select("path")
             .style("stroke", function(d){
-          var descText = d3.select(this.parentNode)
-                .select("desc")
-                .text();
-
-                descText = JSON.parse(descText);
-
+            var descText = d3.select(this.parentNode)
+              .select("desc")
+              .text();
+              descText = JSON.parse(descText);//allows dehighlight to go back to original color
                 return descText.stroke;
             })
 
             .style("stroke-width", "1");
 
-    d3.select(".infolabel")
-        .remove();
+        d3.select(".infolabel")
+          .remove();
 };
 
 //turns calls into seperate funtions to get information stored in the desc element for that style
