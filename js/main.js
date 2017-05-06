@@ -10,13 +10,16 @@ var expressedName = formalName[0];
 var definitions = [
 "The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
 "The Basic Human Needs Dimension Assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
+
 "The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
+
 "The Opportunity Dimension measures the degree to which a country’s citizens have personal rights and freedoms and are able to make their own personal decisions as well as whether prejudices or hostilities within a society prohibit individuals from reaching their potential."
+
 ];
+
 // console.log(definitions[3]);
 //begin script when window loads
 window.onload = setMap();
-
 //set up choropleth map
 function setMap(){
     //map frame dimensions
@@ -35,6 +38,7 @@ function setMap(){
     var projection = d3.geoRobinson()
         .scale(200)
         .translate([(width / 2)-75, (height / 2)+40]);
+
 
     var path = d3.geoPath()
         .projection(projection);
@@ -58,6 +62,7 @@ function setMap(){
         //create color scale
         var colorScale = createColorScale(csvData);
 
+
         //add enumeration units to map
         setEnumerationUnits(worldCountries, map, path, colorScale);
 
@@ -67,6 +72,7 @@ function setMap(){
         //add a dropdown to change mapped attribute
         createDropdown(csvData);
     };
+
 };
 
 function setGraticule(map, path){
@@ -108,6 +114,7 @@ function joinData(worldCountries, csvData){
               var val = parseFloat(csvRegion[attr]); //get csv attribute value
               geojsonProps[attr] = val; //assign attribute and value to geojson properties
           });
+
           rankArray.forEach(function(attr){
               var valRank = parseFloat(csvRegion[attr]); //get csv attribute value
               geojsonProps[attr] = valRank; //assign attribute and value to geojson properties
@@ -138,7 +145,6 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
         dehighlight(d.properties);//dehighlight
       })
       //.on("mousemove", moveDefLabel)
-
       .on("mousemove", moveLabel);
         var desc = countries.append("desc")
         .text('{"stroke": "#000", "stroke-width": "0.5px"}');
@@ -168,7 +174,6 @@ function createColorScale(data){
 
     //assign array of expressed values as scale
     colorScale.domain(domainArray);
-
     return colorScale;
 };
 
@@ -210,7 +215,6 @@ function createDropdown(csvData){
 function changeAttribute(attribute, csvData){
     //change expressed attribute
     expressed = attribute;
-
     if(attribute == "Social_Progress_Index"){
       expressedRank = "Rank_(SPI)";
       expressedName = "Social Progress Index";
@@ -229,11 +233,9 @@ function changeAttribute(attribute, csvData){
     };
     //change color scale
     var colorScale = createColorScale(csvData);
-
     //recolor countries based on expressed attribute
     var states = d3.selectAll(".countries")
         .style("fill", function(d){
-
           return choropleth(d.properties, colorScale)
         });
 };
@@ -246,7 +248,6 @@ function drawPcp(csvData, props){
       height = 500;
   //create attribute names array for pcp axes
   var keys = [], attributes = [];
-
   //fill keys array with all property names
   for (var key in csvData[0]){
     keys.push(key);
@@ -259,6 +260,7 @@ function drawPcp(csvData, props){
     };
 
   };
+
 // console.log(attributes);
   //create horizonatal pcp coordinate generator
   var coordinates = d3.scalePoint() // create an ordinal axis scale
@@ -266,7 +268,6 @@ function drawPcp(csvData, props){
     .range([0, width]); //set the horizontal width to svg
 // console.log(width);
   var axis = d3.axisLeft() //create axis generator
-
 
     //create vertical pcp scale
     scales = {}; //object to hold scale generators
@@ -281,17 +282,14 @@ function drawPcp(csvData, props){
     var line = d3.line();  //create line generators
 
     //create a new svg element with the above dimensions
-    var height = 1200;
-        width = 2350;
+    // var height = 1200;
+    //     width = 2350;
     var pcplot = d3.select("body")
-
       .append("svg")
       .attr("width", width)
       .attr("height", height)
       .attr("class", "pcplot") //for styling
       .append("g") //append container elementa
-      // .attr("x", 1115)
-      // .attr("y", 525)
       .attr("transform", //change the container size/shape-rendering
         "scale(0.8, 0.6) "+//shrink
         "translate(96, 50)"); //move
@@ -304,13 +302,11 @@ function drawPcp(csvData, props){
       .attr("ry", "15")
       .attr("class", "pcpBackground");
 
-
     //add lines
     var pcpLines = pcplot.append("g")  //append a container element
       .attr("class", "pcpLines")  //class for styling lines
       .attr("x", 1115)
       .attr("y", 525);
-
     var pcpPathsg = pcpLines.selectAll("path")  //prepare for new path elements
       .data(csvData)  //bind data
       .enter() //create new path for each lines
@@ -333,7 +329,6 @@ function drawPcp(csvData, props){
       .on("mouseout", dehighlight)
       .on("mousemove", moveLabel);
 
-
       var desc = pcpPathsg.append("desc")
       .text(function(d){
         return '{"stroke": "'+choropleth(d, colorScale)+'", "stroke-width": "0.5px"}'
@@ -346,7 +341,6 @@ function drawPcp(csvData, props){
       .append("g")  //append elements as containers
       .attr("class", "axis")  //class for styling
       .attr("transform", function(d) {
-
           return "translate("+coordinates(d)+")";  //position axes
       })
       .each(function(d){  //invoke the function for each axis
@@ -373,7 +367,7 @@ function drawPcp(csvData, props){
         // adds title
         .text("SPI")
         .style("stroke", "#fff")
-        .on("mouseover", function(){ 
+        .on("mouseover", function(){
           var infolabel = d3.select("body")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
@@ -384,7 +378,7 @@ function drawPcp(csvData, props){
         d3.select(".definitionlabel")
         .remove();
          });
-         
+
 
     var pcpTitleBHN = pcplot.append("text")
         .attr("x", 347)
@@ -394,13 +388,13 @@ function drawPcp(csvData, props){
         // adds title
         .text("BHN")
         .style("stroke", "#fff")
-        .on("mouseover", function(){ 
+        .on("mouseover", function(){
           var infolabel = d3.select("body")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
           .html(definitions[1]);  //add text
-        })      
+        })
         .on("mouseout", function(){
         d3.select(".definitionlabel")
         .remove();
@@ -414,7 +408,7 @@ function drawPcp(csvData, props){
         // adds title
         .text("FW-B")
         .style("stroke", "#fff")
-        .on("mouseover", function(){ 
+        .on("mouseover", function(){
           var infolabel = d3.select("body")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
@@ -424,8 +418,8 @@ function drawPcp(csvData, props){
         .on("mouseout", function(){
         d3.select(".definitionlabel")
         .remove();
-         }); 
-        
+         });
+
 
     var pcpTitleO = pcplot.append("text")
         .attr("x", 1115)
@@ -435,7 +429,7 @@ function drawPcp(csvData, props){
         // adds title
         .text("O")
         .style("stroke", "#FFFFFF")
-        .on("mouseover", function(){ 
+        .on("mouseover", function(){
           var infolabel = d3.select("body")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
@@ -446,39 +440,19 @@ function drawPcp(csvData, props){
         d3.select(".definitionlabel")
         .remove();
          });
-        
-
-
 };
-
-/*function highlight(data){
-  var props = datatest(data);  //standardize json on csv data
-
-  d3.select("#"+props.adm0_a3)  //select the current province in the domain
-      .style("fill", "#000"); //set the enumeration unit fill to black
-
-  //highlight corresponding pcp line-height
-  d3.selectAll(".pcpLines")  //select the pcp lines
-      .select("#"+props.adm0_a3)  //select the right pcp line-height
-      .style("stroke", "#ffd700");  //restyle the line-height
-};*/
 
 function setLabel(props){
   if (props.hasOwnProperty("name")) {
     countrylabel = props.name;
-
   }
   else {
     countrylabel = props.Country;
   }
   var attrValue = props[expressed];
-
   var rankValue = props[expressedRank];
-
   var resultString;
-
   var rankString;
-
   if (isNaN(attrValue)){
         resultString = "No Data" ;
         rankString = "Unranked";
@@ -488,7 +462,6 @@ function setLabel(props){
     }
   var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+rankString+"<br></b>";  //label content
 
-
   //create info label div
   var infolabel = d3.select("body")
       .append("div")
@@ -497,13 +470,11 @@ function setLabel(props){
       .html(labelAttribute)  //add text
 console.log(props);
   var countrylabel;
-
 console.log(countrylabel);
   var countryName = infolabel
       .attr("div")
       .attr("class", "labelname")  //for styliing name
       .html(countrylabel);  //add feature name to label
-
 };
 
 function definitionLabel(String){
@@ -514,15 +485,12 @@ function definitionLabel(String){
       .attr("class", "definitionlabel")  //for styling  label
       .attr("id", "deflabel")  //label for div
       .html(definitionAttribute);  //add text
-
 };
-
 
 function sequence(axis, csvData){
   //restyle the axis
   d3.selectAll(".axes")  //select every axis
       .style("stroke-width", "5px");  //make them all thin
-
   axis.style.strokeWidth = "10px";  //change selected axis thickness
 
   expressed = axis.id;  //change the class-level attribute variable
@@ -537,6 +505,7 @@ function sequence(axis, csvData){
           return choropleth(d, colorScale(csvData));
       });
 };
+
 
 function highlight(props){
     if (props.adm0_a3 < 1){
@@ -567,7 +536,6 @@ function dehighlight(props){
         .style("stroke-width", function(){
             return getStyle(this, "stroke-width")
         });
-
         d3.selectAll(".pcpLines")
             .select("#"+props.adm0_a3)
             .select("path")
@@ -578,23 +546,26 @@ function dehighlight(props){
               descText = JSON.parse(descText);//allows dehighlight to go back to original color
                 return descText.stroke;
             })
-
             .style("stroke-width", "1");
 
         d3.select(".infolabel")
           .remove();
 };
 
+
 //turns calls into seperate funtions to get information stored in the desc element for that style
 function getStyle(element, styleName){
+
       var styleText = d3.select(element)
           .select("desc")
           .text();
+
       //then parse the JSON string to create a JSON object
       var styleObject = JSON.parse(styleText);
 
       return styleObject[styleName];
   };
+
 
 //function to move info label with mouse
 function moveLabel(){

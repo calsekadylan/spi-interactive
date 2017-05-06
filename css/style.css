@@ -40,21 +40,13 @@ option {
 .pcplot  {
 
   margin-top: 0px;
-
-    bottom: -500px;
-    right: 1000px;
-  transform: rotate(90deg);
-
+  /*transform: rotate(90deg);*/
 }
-
 .pcpBackground {
   fill: #000;
   opacity: 1;
   stroke: #000;
   stroke-width: 4px;
-  top: 100px;
-  right: 1000px;
-
 }
 
 .pcpLines path {
