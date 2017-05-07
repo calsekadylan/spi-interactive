@@ -9,7 +9,7 @@ var expressedRank = rankArray[0];
 var expressedName = formalName[0];
 var definitions = [
 "The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
-"The Basic Human Needs Dimension assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
+"The Basic Human Needs Dimension Assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
 
 "The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
 
@@ -283,7 +283,7 @@ function drawPcp(csvData, props){
 
     //create a new svg element with the above dimensions
     var height = 350;
-        width = 1000;
+        width = 1175;
     var pcplot = d3.select("body")
       .append("svg")
       .attr("width", width)
@@ -292,7 +292,7 @@ function drawPcp(csvData, props){
       .append("g") //append container elementa
       .attr("transform", //change the container size/shape-rendering
         "scale(0.8, 0.6) "+//shrink
-        "translate(96, 50)"); //move
+        "translate(275, 50)"); //move
     var pcpBackground = pcplot.append("rect") //background for the pcpBackground
       .attr("x", "-30")
       .attr("y", "-35")
@@ -378,8 +378,7 @@ function drawPcp(csvData, props){
         .on("mouseout", function(){
         d3.select(".definitionlabel")
         .remove();
-         })
-        
+         });
 
 
     var pcpTitleBHN = pcplot.append("text")
@@ -462,7 +461,7 @@ function setLabel(props){
       resultString = attrValue.toString();
       rankString = rankValue.toString();
     }
-  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>Rank: "+rankString+"<br></b>";  //label content
+  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+rankString+"<br></b>";  //label content
 
   //create info label div
   var infolabel = d3.select("body")
