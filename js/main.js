@@ -9,7 +9,7 @@ var expressedRank = rankArray[0];
 var expressedName = formalName[0];
 var definitions = [
 "The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
-"The Basic Human Needs Dimension Assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
+"The Basic Human Needs Dimension assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
 
 "The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
 
@@ -378,7 +378,8 @@ function drawPcp(csvData, props){
         .on("mouseout", function(){
         d3.select(".definitionlabel")
         .remove();
-         });
+         })
+        
 
 
     var pcpTitleBHN = pcplot.append("text")
