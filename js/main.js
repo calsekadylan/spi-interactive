@@ -462,7 +462,7 @@ function setLabel(props){
       resultString = attrValue.toString();
       rankString = rankValue.toString();
     }
-  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+rankString+"<br></b>";  //label content
+  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>Rank: "+rankString+"<br></b>";  //label content
 
   //create info label div
   var infolabel = d3.select("body")

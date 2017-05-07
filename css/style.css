@@ -84,8 +84,8 @@ option {
 }
 
 .definitionlabel{
-  top: 100px;
-  right: 300px;
+  top: 10;
+  right: 30;
   height: 100px;
   max-width: 500px;
   color: #fff;
