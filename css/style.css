@@ -55,10 +55,14 @@ option {
 
 
 }
-
+.axes {
+  stroke: #fff;
+  fill: #fff;
+}
 .axes path {
   fill: none;
   stroke: #fff;
+  fill: #fff;
   stroke-opacity: 1;
   stroke-linecap: round;
 }
