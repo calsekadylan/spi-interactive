@@ -294,13 +294,8 @@ function drawPcp(csvData, props){
     var line = d3.line();  //create line generators
 
     //create a new svg element with the above dimensions
-<<<<<<< Updated upstream
     var height = 350;
         width = 1175;
-=======
-    //var height = 350;
-        //width = 1000;
->>>>>>> Stashed changes
     var pcplot = d3.select("body")
       .append("svg")
       .attr("width", width)
@@ -478,7 +473,7 @@ function setLabel(props){
       resultString = attrValue.toString();
       rankString = rankValue.toString();
     }
-  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b>"+expressedName+" Rank: "+rankString+"<br></b>";  //label content
+  var labelAttribute = "<h1>"+resultString+"</h1><br><b>"+expressedName+"<br>"+countrylabel+"</b><br><b> Rank: "+rankString+"<br></b>";  //label content
 
   //create info label div
   var infolabel = d3.select("body")
