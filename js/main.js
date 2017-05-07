@@ -282,8 +282,8 @@ function drawPcp(csvData, props){
     var line = d3.line();  //create line generators
 
     //create a new svg element with the above dimensions
-    // var height = 1200;
-    //     width = 2350;
+    var height = 350;
+        width = 1000;
     var pcplot = d3.select("body")
       .append("svg")
       .attr("width", width)
@@ -362,6 +362,7 @@ function drawPcp(csvData, props){
     var pcpTitleSPI = pcplot.append("text")
         .attr("x", -10)
         .attr("y", 525)
+        //.transform(rotate("90deg"))
         .attr("class", "pcpTitle")
         .attr("id", "pcpTitleSPI")
         // adds title
