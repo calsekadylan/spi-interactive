@@ -240,6 +240,18 @@ function changeAttribute(attribute, csvData){
         });
 };
 
+function openNav() {
+
+    var sideNav= d3.select("#mySidenav");
+    sideNav.style("width","250px")
+};
+function closeNav() {
+  var sideNav= d3.select("#mySidenav");
+  sideNav.style("width","0px")
+};
+
+$("span").click(openNav);
+$(".closebtn").click(closeNav);
 function drawPcp(csvData, props){
   var colorScale = createColorScale(csvData);
   // console.log(colorScale);
