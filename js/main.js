@@ -294,8 +294,13 @@ function drawPcp(csvData, props){
     var line = d3.line();  //create line generators
 
     //create a new svg element with the above dimensions
+<<<<<<< Updated upstream
     var height = 350;
         width = 1175;
+=======
+    //var height = 350;
+        //width = 1000;
+>>>>>>> Stashed changes
     var pcplot = d3.select("body")
       .append("svg")
       .attr("width", width)
@@ -381,7 +386,7 @@ function drawPcp(csvData, props){
         .text("SPI")
         .style("stroke", "#fff")
         .on("mouseover", function(){
-          var infolabel = d3.select("body")
+          var infolabel = d3.select(".pcplot")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
@@ -402,7 +407,7 @@ function drawPcp(csvData, props){
         .text("BHN")
         .style("stroke", "#fff")
         .on("mouseover", function(){
-          var infolabel = d3.select("body")
+          var infolabel = d3.select(".pcplot")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
@@ -422,7 +427,7 @@ function drawPcp(csvData, props){
         .text("FW-B")
         .style("stroke", "#fff")
         .on("mouseover", function(){
-          var infolabel = d3.select("body")
+          var infolabel = d3.select(".pcplot")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div
@@ -443,7 +448,7 @@ function drawPcp(csvData, props){
         .text("O")
         .style("stroke", "#FFFFFF")
         .on("mouseover", function(){
-          var infolabel = d3.select("body")
+          var infolabel = d3.select(".pcplot")
           .append("div")
           .attr("class", "definitionlabel")  //for styling  label
           .attr("id", "deflabel")  //label for div

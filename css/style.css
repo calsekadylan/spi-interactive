@@ -88,8 +88,8 @@ option {
 }
 
 .definitionlabel{
-  top: 10;
-  right: 30;
+  top: 0px;
+  right: 30px;
   height: 100px;
   max-width: 500px;
   color: #fff;
