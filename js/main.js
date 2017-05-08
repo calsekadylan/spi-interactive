@@ -201,8 +201,18 @@ function createSidepanel(csvData){
     active: 2
   });
   $( ".accordionTitle" ).on("click", function(){
-          changeAttribute($(this).attr("id"), csvData)
+    var thisID = $(this).attr("id")
+          changeAttribute(thisID, csvData);
+          d3.selectAll(".axis").select("path").style("stroke", "#fff");
+          d3.selectAll("."+thisID).select("path").style("stroke", "#dbdc01");
+
       });
+
+
+  // $( ".axis").on("click", function(){
+  //   // highlight($(style("stroke", "#dbdc01"))
+  //
+  // });
 
 
 
@@ -408,7 +418,9 @@ function drawPcp(csvData, props){
       .data(attributes)  //bind data (attribute array)
       .enter()  //create new elements
       .append("g")  //append elements as containers
-      .attr("class", "axis")  //class for styling
+      .attr("class", function(d){
+        return "axis " + d;
+      })  //class for styling
       .attr("transform", function(d) {
           return "translate("+coordinates(d)+")";  //position axes
       })
