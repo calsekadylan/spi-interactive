@@ -209,7 +209,10 @@ function createDropdown(csvData){
         .enter()
         .append("option")
         .attr("value", function(d){return d})
-        .text(function(d){return d});
+        .text(function(d){
+          return d.replace("_"," ");
+        });
+
 };
 
 function changeAttribute(attribute, csvData){
