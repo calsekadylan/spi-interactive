@@ -9,9 +9,9 @@
 
 h3 {
   font-size: 30px;
-  padding: 0px;
+  padding: -50px;
   font-family: sans-serif;
-  position: absolute;
+  position: relative;
   left: 500px;
 
 }
@@ -123,6 +123,7 @@ option {
     font-size: 1.5em;
     font-weight: bold;
     text-align: center;
+    fill: #fff;
 }
 .input[type=text] {
     width: 130px;
