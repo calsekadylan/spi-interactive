@@ -1,6 +1,9 @@
 .map {
   border-style: solid;
   border-color: #fff;
+ position: relative;
+ left: 500px;
+
 }
 
 .countries {
@@ -30,7 +33,7 @@ h3 {
       background:#f7f7f7;*/
 }
 #definition {
-  fill: #fff;
+  color: #fff;
 }
 .gratBackground {
     /*fill: #D5E3FF;*/
@@ -64,6 +67,8 @@ option {
 .pcplot  {
 
   margin-top: 0px;
+  position: relative;
+  left: 600px;
   /*transform: rotate(90deg);*/
   border-style: solid;
   border-color: #fff;
