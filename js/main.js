@@ -9,7 +9,7 @@ var expressedRank = rankArray[0];
 var expressedName = formalName[0];
 var definitions = [
 "The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
-"The Basic Human Needs Dimension Assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
+"The Basic Human Needs Dimension assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
 
 "The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
 
@@ -23,7 +23,7 @@ window.onload = setMap();
 //set up choropleth map
 function setMap(){
     //map frame dimensions
-    var width = 1500,
+    var width = 1400,
         height = 540;
 
     //create new svg container for the map
@@ -250,8 +250,58 @@ function closeNav() {
   sideNav.style("width","0px")
 };
 
-$("span").click(openNav);
-$(".closebtn").click(closeNav);
+var spiDefPanel = d3.select("#SPI")
+  .on("mouseover", function(){
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[0]);  //add text
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
+
+var bhnDefPanel = d3.select("#BHN")
+  .on("mouseover", function(){
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[1]);  //add text
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
+
+var fwbDefPanel = d3.select("#FW-B")
+  .on("mouseover", function(){
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[2]);  //add text
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
+
+var oDefPanel = d3.select("#O")
+  .on("mouseover", function(){
+          var infolabel = d3.select("body")
+          .append("div")
+          .attr("class", "definitionlabel")  //for styling  label
+          .attr("id", "deflabel")  //label for div
+          .html(definitions[3]);  //add text
+        })
+        .on("mouseout", function(){
+        d3.select(".definitionlabel")
+        .remove();
+         });
+
 function drawPcp(csvData, props){
   var colorScale = createColorScale(csvData);
   // console.log(colorScale);
@@ -379,19 +429,8 @@ function drawPcp(csvData, props){
         .attr("id", "pcpTitleSPI")
         // adds title
         .text("SPI")
-        .style("stroke", "#fff")
-        .on("mouseover", function(){
-          var infolabel = d3.select(".pcplot")
-          .append("div")
-          .attr("class", "definitionlabel")  //for styling  label
-          .attr("id", "deflabel")  //label for div
-          .html(definitions[0]);  //add text
-        })
-        .on("mouseout", function(){
-        d3.select(".definitionlabel")
-        .remove();
-         });
-
+        .style("stroke", "#fff");
+        
 
     var pcpTitleBHN = pcplot.append("text")
         .attr("x", 347)
@@ -400,18 +439,8 @@ function drawPcp(csvData, props){
         .attr("id", "pcpTitleBHN")
         // adds title
         .text("BHN")
-        .style("stroke", "#fff")
-        .on("mouseover", function(){
-          var infolabel = d3.select(".pcplot")
-          .append("div")
-          .attr("class", "definitionlabel")  //for styling  label
-          .attr("id", "deflabel")  //label for div
-          .html(definitions[1]);  //add text
-        })
-        .on("mouseout", function(){
-        d3.select(".definitionlabel")
-        .remove();
-         });
+        .style("stroke", "#fff");
+        
 
     var pcpTitleFWB = pcplot.append("text")
         .attr("x", 715)
@@ -420,18 +449,8 @@ function drawPcp(csvData, props){
         .attr("id", "pcpTitleFWB")
         // adds title
         .text("FW-B")
-        .style("stroke", "#fff")
-        .on("mouseover", function(){
-          var infolabel = d3.select(".pcplot")
-          .append("div")
-          .attr("class", "definitionlabel")  //for styling  label
-          .attr("id", "deflabel")  //label for div
-          .html(definitions[2]);  //add text
-        })
-        .on("mouseout", function(){
-        d3.select(".definitionlabel")
-        .remove();
-         });
+        .style("stroke", "#fff");
+       
 
 
     var pcpTitleO = pcplot.append("text")
@@ -441,18 +460,7 @@ function drawPcp(csvData, props){
         .attr("id", "pcpTitleO")
         // adds title
         .text("O")
-        .style("stroke", "#FFFFFF")
-        .on("mouseover", function(){
-          var infolabel = d3.select(".pcplot")
-          .append("div")
-          .attr("class", "definitionlabel")  //for styling  label
-          .attr("id", "deflabel")  //label for div
-          .html(definitions[3]);  //add text
-        })
-        .on("mouseout", function(){
-        d3.select(".definitionlabel")
-        .remove();
-         });
+        .style("stroke", "#FFFFFF");
 };
 
 function setLabel(props){
@@ -491,9 +499,9 @@ console.log(countrylabel);
 };
 
 function definitionLabel(String){
- var definitionAttribute = "<p>"+String+"</p>";
+ var definitionAttribute = String;
 
- var infolabel = d3.select("body")
+ var infolabel = d3.select("#mySidenav")
       .append("div")
       .attr("class", "definitionlabel")  //for styling  label
       .attr("id", "deflabel")  //label for div
@@ -502,7 +510,7 @@ function definitionLabel(String){
 
 function sequence(axis, csvData){
   //restyle the axis
-  d3.selectAll(".axes")  //select every axis
+  d3.selectAll(".axis")  //select every axis
       .style("stroke-width", "5px");  //make them all thin
   axis.style.strokeWidth = "10px";  //change selected axis thickness
 
@@ -626,5 +634,6 @@ function moveDefLabel(){
               .style("left", x + "px")
               .style("top", y + "px");
 };
+
 
 })();
