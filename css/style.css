@@ -1,8 +1,7 @@
 .map {
-  border-style: solid;
-  border-color: #fff;
- position: relative;
- left: 500px;
+
+  position: relative;
+  left: 500px;
 
 }
 
@@ -17,7 +16,8 @@ h4 {
   padding: -150px;
   font-family: sans-serif;
   position: relative;
-  left: 500px;
+  left: 1000px;
+  color: #fff;
 
 }
 h3 {
@@ -68,11 +68,10 @@ option {
 
   margin-top: 0px;
   position: relative;
-  left: 600px;
+  left: 500px;
   /*transform: rotate(90deg);*/
-  border-style: solid;
-  border-color: #fff;
-  border-left: 10px;
+
+
 }
 .pcpBackground {
   fill: #000;
@@ -171,7 +170,7 @@ input[type=text]:focus {
     background-color: #000; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
-    border-style: solid;
+    border-right: solid;
     border-color: #fff;
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 
