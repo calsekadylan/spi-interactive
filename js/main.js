@@ -7,15 +7,15 @@ var formalName = ["Social Progress Index","Basic Human Needs","Foundations of We
 var expressed = attrArray[0];
 var expressedRank = rankArray[0];
 var expressedName = formalName[0];
-var definitions = [
-"The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
-"The Basic Human Needs Dimension assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
-
-"The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
-
-"The Opportunity Dimension measures the degree to which a country’s citizens have personal rights and freedoms and are able to make their own personal decisions as well as whether prejudices or hostilities within a society prohibit individuals from reaching their potential."
-
-];
+// var definitions = [
+// "The Social Progress Index measures the extent to which countries provide for the social and environmental needs of their citizens",
+// "The Basic Human Needs Dimension assesses how well a country provides for its people’s essential needs by measuring access to nutrition and basic medical care, if they have access to safe drinking water, if they have access to adequate housing with basic utilities, and if society is safe and secure.",
+//
+// "The Foundations of Well-Being Dimension measures whether citizens have access to basic education, can access information and knowledge from both inside and outside their country, and if there are the conditions for living healthy lives.",
+//
+// "The Opportunity Dimension measures the degree to which a country’s citizens have personal rights and freedoms and are able to make their own personal decisions as well as whether prejudices or hostilities within a society prohibit individuals from reaching their potential."
+//
+// ];
 
 // console.log(definitions[3]);
 //begin script when window loads
@@ -34,6 +34,7 @@ function setMap(){
         .attr("height", height);
 
 
+
     //create Robinson projection
     var projection = d3.geoRobinson()
         .scale(200)
@@ -42,6 +43,7 @@ function setMap(){
 
     var path = d3.geoPath()
         .projection(projection);
+
 
     //use d3.queue to parallelize asynchronous data loading
     d3.queue()
@@ -69,8 +71,9 @@ function setMap(){
         //create parallel coordinate plot
         drawPcp(csvData);
 
-        //add a dropdown to change mapped attribute
-        createDropdown(csvData);
+        //add a sidepanel to change mapped attribute
+
+        createSidepanel(csvData);
     };
 
 };
@@ -148,17 +151,21 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
       .on("mousemove", moveLabel);
         var desc = countries.append("desc")
         .text('{"stroke": "#000", "stroke-width": "0.5px"}');
+
+
+
+
 };
 
 function createColorScale(data){
     //colors for color scale
     var colorClasses = [
-      "#edf8fb",
-      "#bfd3e6",
-      "#9ebcda",
-      "#8c96c6",
+      "#810f7c",
       "#8856a7",
-      "#810f7c"
+      "#8c96c6",
+      "#9ebcda",
+      "#bfd3e6",
+      "#edf8fb"
     ];
 
     //create a color scale generator
@@ -189,31 +196,18 @@ function choropleth(props, colorScale){
     };
 };
 
-function createDropdown(csvData){
-    //add select element
-    var dropdown = d3.select("body")
-        .append("select")
-        .attr("class", "dropdown")
-        .on("change", function(){
-            changeAttribute(this.value, csvData)
-        });
+function createSidepanel(csvData){
+  $( "#accordion" ).accordion({
+    active: 2
+  });
+  $( ".accordionTitle" ).on("click", function(){
+          changeAttribute($(this).attr("id"), csvData)
+      });
 
-    //add initial option to dropdown
-    var titleOption = dropdown.append("option")
-        .attr("class", "titleOption")
-        .attr("disabled", "true")
-        .text("Select Attribute");
 
-    var attrOptions = dropdown.selectAll("attrOptions")
-        .data(attrArray)
-        .enter()
-        .append("option")
-        .attr("value", function(d){return d})
-        .text(function(d){
-          return d.replace("_"," ");
-        });
 
 };
+
 
 function changeAttribute(attribute, csvData){
     //change expressed attribute
@@ -242,6 +236,16 @@ function changeAttribute(attribute, csvData){
           return choropleth(d.properties, colorScale)
         });
 };
+
+// $( "#accordion" ).accordion({
+//   disabled: true
+// });
+// // Getter
+// var active = $( "#accordion" ).accordion( "option", "active" );
+//
+// // Setter
+// $( "#accordion" ).accordion( "option", "active", 2 );
+
 
 function openNav() {
 
@@ -492,9 +496,9 @@ function setLabel(props){
       .attr("class", "infolabel")  //for styling  label
       .attr("id", props.adm0_a3+"label")  //label for div
       .html(labelAttribute)  //add text
-console.log(props);
+//console.log(props);
   var countrylabel;
-console.log(countrylabel);
+//console.log(countrylabel);
   var countryName = infolabel
       .attr("div")
       .attr("class", "labelname")  //for styliing name

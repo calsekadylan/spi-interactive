@@ -1,24 +1,41 @@
 .map {
-    top: 100px;
+  border-style: solid;
+  border-color: #fff;
 }
+
 .countries {
   	stroke: #000;
     stroke-width: 0.5px;
     stroke-linecap: round;
 }
 
-h3 {
+h4 {
   font-size: 30px;
-  padding: -50px;
+  padding: -150px;
   font-family: sans-serif;
   position: relative;
   left: 500px;
 
 }
+h3 {
 
+}
+#accordion{
+  max-width: 400px;
+  /*fill: #000;
+
+  overflow:hidden;
+      box-shadow:0px 1px 3px rgba(0,0,0,0.25);
+      border-radius:3px;
+      background:#f7f7f7;*/
+}
+#definition {
+  fill: #fff;
+}
 .gratBackground {
     /*fill: #D5E3FF;*/
     fill: #000;
+
 }
 
 .gratLines {
@@ -48,12 +65,16 @@ option {
 
   margin-top: 0px;
   /*transform: rotate(90deg);*/
+  border-style: solid;
+  border-color: #fff;
+  border-left: 10px;
 }
 .pcpBackground {
   fill: #000;
   opacity: 1;
   stroke: #000;
   stroke-width: 4px;
+
 }
 
 .pcpLines path {
@@ -141,7 +162,7 @@ input[type=text]:focus {
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
-    right: 0;
+    left: 0;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
