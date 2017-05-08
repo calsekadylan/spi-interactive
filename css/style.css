@@ -1,3 +1,6 @@
+.map {
+    top: 100px;
+}
 .countries {
   	stroke: #000;
     stroke-width: 0.5px;
@@ -5,8 +8,12 @@
 }
 
 h3 {
+  font-size: 30px;
   padding: 0px;
   font-family: sans-serif;
+  position: absolute;
+  left: 500px;
+
 }
 
 .gratBackground {

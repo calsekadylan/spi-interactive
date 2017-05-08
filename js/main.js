@@ -23,7 +23,7 @@ window.onload = setMap();
 //set up choropleth map
 function setMap(){
     //map frame dimensions
-    var width = 1400,
+    var width = 1500,
         height = 540;
 
     //create new svg container for the map
@@ -400,7 +400,7 @@ function drawPcp(csvData, props){
       })
 
     //add axes
-    var axes = pcplot.selectAll(".attribute")  //prepare for new elements
+    var axis = pcplot.selectAll(".attribute")  //prepare for new elements
       .data(attributes)  //bind data (attribute array)
       .enter()  //create new elements
       .append("g")  //append elements as containers
