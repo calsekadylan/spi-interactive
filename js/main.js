@@ -430,7 +430,7 @@ function drawPcp(csvData, props){
         // adds title
         .text("SPI")
         .style("stroke", "#fff");
-        
+
 
     var pcpTitleBHN = pcplot.append("text")
         .attr("x", 347)
@@ -440,7 +440,7 @@ function drawPcp(csvData, props){
         // adds title
         .text("BHN")
         .style("stroke", "#fff");
-        
+
 
     var pcpTitleFWB = pcplot.append("text")
         .attr("x", 715)
@@ -450,7 +450,7 @@ function drawPcp(csvData, props){
         // adds title
         .text("FW-B")
         .style("stroke", "#fff");
-       
+
 
 
     var pcpTitleO = pcplot.append("text")
