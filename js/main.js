@@ -184,7 +184,7 @@ function createColorScale(data, width){
     colorScale.domain(domainArray);
 
     //create legend
-    var legend = d3.selectAll(".sideNav")
+    var legend = d3.select(".sidenav")
         .data(["Very High", "High", "Upper Middle", "Lower Middle", "Low", "Very Low"])
         .enter()
         .append("g")
@@ -193,14 +193,16 @@ function createColorScale(data, width){
 
         legend.append("rect")
             .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
+            .attr("width", 100)
+            .attr("height", 100)
+            .style("color", "#fff")
             .style("fill", function(d){return colorScale(d)});
 
         legend.append("text")
             .attr("x", width - 24)
             .attr("y", 9)
             .attr("dy", ".35em")
+            .style("color", "#fff")
             .style("text-anchor", "end")
             .text(function(d) { return d;});
 
