@@ -166,7 +166,7 @@ function createColorScale(data, width){
       "#9ebcda",
       "#bfd3e6",
       "#edf8fb"
-      
+
     ];
 
     //create a color scale generator
@@ -183,30 +183,6 @@ function createColorScale(data, width){
     //assign array of expressed values as scale
     colorScale.domain(domainArray);
 
-    //create legend
-    var legend = d3.select(".sidenav")
-        .data(["Very High", "High", "Upper Middle", "Lower Middle", "Low", "Very Low"])
-        .enter()
-        .append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 100)
-            .attr("height", 100)
-            .style("color", "#fff")
-            .style("fill", function(d){return colorScale(d)});
-
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("color", "#fff")
-            .style("text-anchor", "end")
-            .text(function(d) { return d;});
-
-     //d3.select(".sideNav").append(legend);
 
     return colorScale;
 };
@@ -224,14 +200,14 @@ function choropleth(props, colorScale){
 };
 
 function createSidepanel(csvData){
-  $( "#accordion" ).accordion({
+  $( "#accordion" ).accordion({ //create accordion with jquery
     active: 0
   });
   $( ".accordionTitle" ).on("click", function(){
     var thisID = $(this).attr("id")
           changeAttribute(thisID, csvData);
-          d3.selectAll(".axis").select("path").style("stroke", "#fff");
-          d3.selectAll("."+thisID).select("path").style("stroke", "#dbdc01");
+          d3.selectAll(".axis").select("path").style("stroke", "#fff");// change axis back to white when next attribute is clicked
+          d3.selectAll("."+thisID).select("path").style("stroke", "#dbdc01");  //change axis to yellow when attribute is clicked
 
       });
 

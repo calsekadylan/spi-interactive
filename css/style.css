@@ -20,6 +20,29 @@ h4 {
   color: #fff;
 
 }
+h5 {
+  color: #fff;
+  font-size: 25px;
+  font-family: sans-serif;
+  position: relative;
+  left: 150px;
+  top: 0px;
+}
+h6 {
+  color: #fff;
+  font-size: 15px;
+  font-family: sans-serif;
+  position: relative;
+  bottom: 20px;
+  right: 150px;
+}
+img {
+  width: 50%;
+  height: 50%;
+  position: relative;
+  right: 60px;
+  bottom: 30px;
+}
 .div h3 {
 fill: #f000;
 }
@@ -29,7 +52,7 @@ fill: #f000;
 }
 #accordion{
   max-width: 400px;
-  
+
   /*fill: #000;
 
   overflow:hidden;
