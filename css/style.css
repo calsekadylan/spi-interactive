@@ -30,9 +30,11 @@ h5 {
 }
 h6 {
   color: #fff;
-  font-size: 10px;
+  font-size: 15px;
   font-family: sans-serif;
   position: relative;
+  bottom: 20px;
+  right: 150px;
 }
 img {
   width: 50%;
