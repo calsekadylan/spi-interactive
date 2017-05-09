@@ -166,7 +166,7 @@ function createColorScale(data, width){
       "#9ebcda",
       "#bfd3e6",
       "#edf8fb"
-      
+
     ];
 
     //create a color scale generator
@@ -184,7 +184,7 @@ function createColorScale(data, width){
     colorScale.domain(domainArray);
 
     //create legend
-    var legend = d3.selectAll(".sideNav")
+    var legend = d3.selectAll(".sidenav")
         .data(["Very High", "High", "Upper Middle", "Lower Middle", "Low", "Very Low"])
         .enter()
         .append("g")
@@ -222,14 +222,14 @@ function choropleth(props, colorScale){
 };
 
 function createSidepanel(csvData){
-  $( "#accordion" ).accordion({
+  $( "#accordion" ).accordion({ //create accordion with jquery
     active: 0
   });
   $( ".accordionTitle" ).on("click", function(){
     var thisID = $(this).attr("id")
           changeAttribute(thisID, csvData);
-          d3.selectAll(".axis").select("path").style("stroke", "#fff");
-          d3.selectAll("."+thisID).select("path").style("stroke", "#dbdc01");
+          d3.selectAll(".axis").select("path").style("stroke", "#fff");// change axis back to white when next attribute is clicked
+          d3.selectAll("."+thisID).select("path").style("stroke", "#dbdc01");  //change axis to yellow when attribute is clicked
 
       });
 
