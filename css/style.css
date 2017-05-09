@@ -11,15 +11,7 @@
     stroke-linecap: round;
 }
 
-h4 {
-  font-size: 30px;
-  padding: -150px;
-  font-family: sans-serif;
-  position: relative;
-  left: 1000px;
-  color: #fff;
 
-}
 h5 {
   color: #fff;
   font-size: 25px;
@@ -28,7 +20,26 @@ h5 {
   left: 150px;
   top: 0px;
 }
-h6 {
+
+a {
+  color: #fff;
+  font-size: 15px;
+  font-family: sans-serif;
+  position: relative;
+  bottom: 20px;
+  right: 150px;
+}
+
+h4 {
+  color: #fff;
+  font-size: 15px;
+  font-family: sans-serif;
+  position: relative;
+  bottom: 20px;
+  right: 150px;
+}
+
+h1 {
   color: #fff;
   font-size: 15px;
   font-family: sans-serif;
@@ -245,3 +256,4 @@ input[type=text]:focus {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
