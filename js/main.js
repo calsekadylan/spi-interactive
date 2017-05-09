@@ -198,7 +198,7 @@ function choropleth(props, colorScale){
 
 function createSidepanel(csvData){
   $( "#accordion" ).accordion({
-    active: 2
+    active: 0
   });
   $( ".accordionTitle" ).on("click", function(){
     var thisID = $(this).attr("id")
@@ -241,7 +241,7 @@ function changeAttribute(attribute, csvData){
     //change color scale
     var colorScale = createColorScale(csvData);
     //recolor countries based on expressed attribute
-    var states = d3.selectAll(".countries")
+    var countries = d3.selectAll(".countries")
         .style("fill", function(d){
           return choropleth(d.properties, colorScale)
         });
