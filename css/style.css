@@ -11,6 +11,15 @@
     stroke-linecap: round;
 }
 
+a {
+  color: #fff;
+  font-size: 15px;
+  font-family: sans-serif;
+  position: relative;
+  bottom: 20px;
+  right: 150px;
+}
+
 
 h5 {
   color: #fff;
@@ -21,22 +30,13 @@ h5 {
   top: 0px;
 }
 
-a {
-  color: #fff;
-  font-size: 15px;
-  font-family: sans-serif;
-  position: relative;
-  bottom: 20px;
-  right: 150px;
-}
 
 h4 {
   color: #fff;
-  font-size: 15px;
+  font-size: 30px;
   font-family: sans-serif;
   position: relative;
-  bottom: 20px;
-  right: 150px;
+  left: 1000px;
 }
 
 h1 {
