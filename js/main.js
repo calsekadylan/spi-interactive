@@ -157,7 +157,7 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
 
 };
 
-function createColorScale(data){
+function createColorScale(data, width){
     //colors for color scale
     var colorClasses = [
       "#edf8fb",
@@ -181,6 +181,28 @@ function createColorScale(data){
 
     //assign array of expressed values as scale
     colorScale.domain(domainArray);
+
+    //create legend
+    var legend = d3.selectAll(".legend")
+        .data(["Very High", "High", "Upper Middle", "Lower Middle", "Low", "Very Low"])
+        .enter()
+        .append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", function(d){return colorScale(d)});
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d;});
+
     return colorScale;
 };
 
