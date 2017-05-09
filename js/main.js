@@ -160,12 +160,13 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
 function createColorScale(data, width){
     //colors for color scale
     var colorClasses = [
-      "#edf8fb",
-      "#bfd3e6",
-      "#9ebcda",
-      "#8c96c6",
-      "#8856a7",
       "#810f7c",
+      "#8856a7",
+      "#8c96c6",
+      "#9ebcda",
+      "#bfd3e6",
+      "#edf8fb"
+      
     ];
 
     //create a color scale generator
