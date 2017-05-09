@@ -22,11 +22,24 @@ h4 {
 }
 h5 {
   color: #fff;
-  font-size: 20px;
+  font-size: 25px;
   font-family: sans-serif;
   position: relative;
   left: 150px;
-  top: 75px;
+  top: 0px;
+}
+h6 {
+  color: #fff;
+  font-size: 10px;
+  font-family: sans-serif;
+  position: relative;
+}
+img {
+  width: 50%;
+  height: 50%;
+  position: relative;
+  right: 60px;
+  bottom: 30px;
 }
 .div h3 {
 fill: #f000;
