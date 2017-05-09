@@ -20,11 +20,16 @@ h4 {
   color: #fff;
 
 }
-h3 {
-
+.div h3 {
+fill: #f000;
+}
+.legend {
+  border-style: solid;
+  border-color: #fff;
 }
 #accordion{
   max-width: 400px;
+  
   /*fill: #000;
 
   overflow:hidden;
