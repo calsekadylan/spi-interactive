@@ -157,15 +157,15 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
 
 };
 
-function createColorScale(data){
+function createColorScale(data, width){
     //colors for color scale
     var colorClasses = [
-      "#810f7c",
-      "#8856a7",
-      "#8c96c6",
-      "#9ebcda",
+      "#edf8fb",
       "#bfd3e6",
-      "#edf8fb"
+      "#9ebcda",
+      "#8c96c6",
+      "#8856a7",
+      "#810f7c",
     ];
 
     //create a color scale generator
@@ -181,6 +181,28 @@ function createColorScale(data){
 
     //assign array of expressed values as scale
     colorScale.domain(domainArray);
+
+    //create legend
+    var legend = d3.selectAll(".legend")
+        .data(["Very High", "High", "Upper Middle", "Lower Middle", "Low", "Very Low"])
+        .enter()
+        .append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", function(d){return colorScale(d)});
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d;});
+
     return colorScale;
 };
 
@@ -198,7 +220,7 @@ function choropleth(props, colorScale){
 
 function createSidepanel(csvData){
   $( "#accordion" ).accordion({
-    active: 2
+    active: 0
   });
   $( ".accordionTitle" ).on("click", function(){
     var thisID = $(this).attr("id")
@@ -241,7 +263,7 @@ function changeAttribute(attribute, csvData){
     //change color scale
     var colorScale = createColorScale(csvData);
     //recolor countries based on expressed attribute
-    var states = d3.selectAll(".countries")
+    var countries = d3.selectAll(".countries")
         .style("fill", function(d){
           return choropleth(d.properties, colorScale)
         });
